@@ -12,6 +12,7 @@ package Login;
  */
 public class login {
     private String user,pass, ime, prezime, rola;
+    private int id;
 
     public login() {
     }
@@ -93,6 +94,20 @@ public class login {
      */
     public void setRola(String rola) {
         this.rola = rola;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
     
     

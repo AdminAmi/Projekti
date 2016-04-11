@@ -27,6 +27,30 @@ public class loginKontroler {
     } catch (JAXBException ex) { }
         
     }
+    public int generateId(){
+        int  temp=-1;  
+        if(korisnici.isEmpty()) return 0;
+        for (login a1 : korisnici) {        
+        if (a1.getId()>temp) temp=a1.getId();
+    }
+    return temp+1;    
+    }
+    public boolean dodajOsobu(login o) throws NoSuchAlgorithmException{
+        int i = korisnici.size();
+        login kor = new login(o.getUser(),utility.sha1(o.getPass()) , o.getIme(), o.getPrezime(), o.getRola());
+        kor.setId(generateId());
+        this.korisnici.add(kor);
+        xml.smjesti(korisnici);     
+        return (i!=korisnici.size() && xml.smjestiUXML());
+    }
+    
+    public boolean azurirajOsobu(login log) throws NoSuchAlgorithmException{
+        korisnici.get(log.getId()).setIme(log.getIme());
+        korisnici.get(log.getId()).setPrezime(log.getPrezime());
+        korisnici.get(log.getId()).setRola(log.getRola());
+        korisnici.get(log.getId()).setUser(log.getUser());
+        korisnici.get(log.getId()).setPass(utility.sha1(log.getPass()));        
+        return true;}
 
     /**
      * @return the korisnici

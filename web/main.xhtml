@@ -64,6 +64,7 @@
                            value="Promjena korisničkih podataka" 
                            class="w3-small  "
                            action="promjenaPod"
+                           rendered="${LogIn.lk.korisnik.rola!='guest'}"
                            /> 
             <br/><br/>
             <h:commandLink id="loginOff"                           

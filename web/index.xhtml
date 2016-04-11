@@ -7,13 +7,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
         <h:outputStylesheet name="css/w3.css" library="resources"/>
+        <style type="text/css">
+             *:focus {outline: none;}
+        </style>
     </h:head>
     <h:body class="w3-container" onload="document.getElementById('id01').style.display='block'">  
     <!-- iZGRADNJA MODAL DIALOGA -->  
     <h:form id="loginForm">
     <div id="id01" class="w3-modalAmi">       
         <div class="w3-modal-content w3-card-8 w3-animate-zoom" 
-             style="max-width:600px">
+             style="max-width:500px">
             <header class="w3-container w3-blue-grey">
                 <h2>Forma za prijavu na aplikaciju</h2>
             </header>
@@ -30,16 +33,20 @@
                 </h:graphicImage>        
             </div>
             <!-- Forma za registraciju -->
-            <div class="w3-container">
+            <div class="w3-container w3-small ">
                 <div class="w3-section">
-                    <label><b>Korisničko ime</b></label>
+                    
+                    <label ><b>Korisničko ime :</b></label>
                     <h:inputText id="korisnik" 
-                                 class="w3-input w3-border w3-hover-border-black w3-margin-bottom"
+                                 class=" w3-border-0 w3-border-bottom w3-hover-border-black w3-margin-bottom w3-center"
+                                 style="width: 100%"
                                  value="#{LogIn.user}"
-                                 autocomplete="off"/>     
-                    <label><b>Korisnička zaporka</b></label>
+                                 autocomplete="off"/>   
+                    
+                    <label><b>Korisnička zaporka :</b></label>
                     <h:inputSecret id="lozinka"
-                                   class="w3-input w3-border w3-hover-border-black w3-margin-bottom "
+                                   class="  w3-border-0 w3-border-bottom w3-hover-border-black w3-margin-bottom w3-center "
+                                   style="width: 100%"
                                    value="#{LogIn.pass}"
                                    autocomplete="off"/> 
                     <h:commandButton value="Login"

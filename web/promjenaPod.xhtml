@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="css/w3.css" library="resources"/>
@@ -18,14 +17,6 @@
             html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
             .w3-sidenav a {padding:16px;font-weight:bold}
             .stavka{display: none;}
-            :-moz-placeholder {
-            color: #ccc;
-            }
- 
-            ::-webkit-input-placeholder {
-            color: #ccc;
-             }
-             *:focus {outline: none;}
         </style>
         <title>TFB Projekti</title>
     </h:head>    
@@ -48,12 +39,13 @@
            
             <h:commandLink id="pocetna"                           
                            value="Početna"  
-                           class="w3-small tablinks" 
+                           class="w3-small "  
                            action="main"
                            />
             <h:commandLink id="noviPr"                           
                            value="Unos novog projekta" 
-                           class="w3-small  "                          
+                           class="w3-small  "
+                           action="noviProjekat"
                            />
             <h:commandLink id="azuriranjePr"                           
                            value="Ažuriranje" 
@@ -95,76 +87,27 @@
             </header>
         <!--Kraj header unosa -->    
             
-        <!--Unos sadržaja -->  
-        <h:form id="Unos">
+        <!--Unos sadržaja -->    
+        <h:form id="AzuriranjeKorisnika">
             <div  class="w3-container w3-padding-jumbo ">                
-                <h1 class="w3-text-teal">Unos novog projekta</h1>
-                <h5>Ispunite sljedeća polja:</h5>
+                <h1 class="w3-text-teal">Promjena ličnih podataka korisnika</h1>
+                <h5>U formi možete promjeniti podatke:</h5>
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
                     <li class="w3-small">
                         <p>
-                            <label>Naslov projekta:</label> 
-                            <h:inputText value="#{projekat.projekatUnos.projectTitle}"
+                            <label>Ime :</label>
+                            <h:inputText value="#{LogIn.lk.korisnik.ime}"
                                          style="width: 100%"
                                      class="w3-border-0 w3-border-green w3-border-bottom " />
                         </p>
                         <p>
-                            <label>Naziv donatora:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom  "   
+                            <label>Prezime :</label>
+                            <h:inputText value="#{LogIn.lk.korisnik.prezime}"
                                          style="width: 100%"
-                                         value="#{projekat.projekatUnos.donorsOfProject}" />
-                        </p>
-                       
-                        <p>
-                            <label>Mjesto održavanja projekta:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom " 
-                                         style="width: 100%"
-                                         value="#{projekat.projekatUnos.location}" />
-                        </p>               
-                        
-                        <p>
-                            <label>Ukupni iznos projekta:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom "  
-                                         style="width: 100%"
-                                         value="#{projekat.projekatUnos.cost}" />
-                        </p>
-                        
-                        
-                        <p>
-                            <label>Ukupni iznos dobijen od donatora:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom "  
-                                         style="width: 100%"
-                                         value="#{projekat.projekatUnos.ammountOfDonors}" />
-                        </p>
-                        
-                        <p>
-                            <label>Uloga u projektu</label>
-                            <h:selectOneMenu class="w3-select"  
-                                             style="width: 15%"
-                                             value="#{projekat.projekatUnos.roleInProject}" >
-                                <f:selectItem itemValue="Coordinator" itemDescription="Coordinator"/>
-                                <f:selectItem itemValue="Co-applicant" itemDescription="Co-applicant"/>
-                                <f:selectItem itemValue="affiliated entity" itemDescription="affiliated entity "/>
-                            </h:selectOneMenu> 
-                            
-                        </p>
-                                                
-                        <p>
-                            <label>Vrijeme trajanja projekta </label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom "         
-                                         style="width: 100%"
-                                         value="#{projekat.projekatUnos.projectDuration}" />                                            
-                        </p>
-                       
-                        
-                        <p>
-                            <label>Ciljevi projekta</label>
-                            <h:inputTextarea class="w3-input w3-border-green w3-border-left "
-                                             cols="30" rows="6"
-                                             value="#{projekat.projekatUnos.objectives}" />
+                                     class="w3-border-0 w3-border-green w3-border-bottom " />
                         </p>
                     </li>
-                                        
+                                      
                 </ul>
                 <br/>  
             </div>   

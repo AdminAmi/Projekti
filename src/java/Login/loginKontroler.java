@@ -50,8 +50,10 @@ public class loginKontroler {
         korisnici.get(log.getId()).setPrezime(log.getPrezime());
         korisnici.get(log.getId()).setRola(log.getRola());
         korisnici.get(log.getId()).setUser(log.getUser());
-        korisnici.get(log.getId()).setPass(utility.sha1(log.getPass()));        
-        return true;}
+        korisnici.get(log.getId()).setPass(utility.sha1(log.getPass()));
+        xml.smjesti(korisnici); 
+        return xml.smjestiUXML();
+    }
 
     /**
      * @return the korisnici

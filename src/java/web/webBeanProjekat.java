@@ -57,13 +57,15 @@ public class webBeanProjekat {
     public String snimi(){
         if(projekatUnos == null) return "greska";
         if(!getFile().getSubmittedFileName().isEmpty()){
-            projekatUnos.setFileName(getFile().getSubmittedFileName());
+            projekatUnos.setProjectPath(getFile().getSubmittedFileName());
             try (InputStream input = getFile().getInputStream()) {
-                Files.copy(input, new File("C:/testSaUploadom", getFile().getSubmittedFileName()).toPath());
+                Files.copy(input, new File(utility.putZaProjekte, getFile().getSubmittedFileName()).toPath());
             }
             catch (IOException e) {
             // Show faces message?
             }
+        }else{
+            projekatUnos.setProjectPath("");            
         }
         if(PK.dodajProjekat(projekatUnos)) {
             reset();
@@ -82,8 +84,8 @@ public class webBeanProjekat {
         download (utility.putZaXML + "baza.xml", "baza.xml");
     }
     public void downloadProjekat(){
-        download(utility.putZaProjekte + selektovani.getFileName(),
-                selektovani.getFileName());
+        download(utility.putZaProjekte + selektovani.getProjectPath(),
+                selektovani.getProjectPath());
     }
     
     

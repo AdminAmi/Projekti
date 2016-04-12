@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import model.utility;
 
 /**
  *
@@ -28,6 +29,22 @@ public class webLogIn {
 
     public webLogIn() {
          setTestRegistracije(false);
+    }
+    
+    public String promjenaPass() throws NoSuchAlgorithmException{
+        if(lk.getKorisnik().getPass().contains(utility.sha1(getPass()))
+                && getNewPass().contains(getConfirmPass())){
+            lk.getKorisnik().setPass(newPass);
+            lk.azurirajOsobu(lk.getKorisnik());
+            FacesMessage message = new FacesMessage("Uspješna promjena zaporke!!!");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("AzuriranjeKorisnika:promjenaPass", message);        
+            } else {
+            FacesMessage message = new FacesMessage("Neuspješna promjena zaporke!!!");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("AzuriranjeKorisnika:promjenaPass", message); 
+        }            
+        return null;
     }
     
     /**

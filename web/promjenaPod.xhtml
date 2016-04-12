@@ -99,23 +99,23 @@
                     <li class="w3-small">
                         <p>
                             <label class="ami-labela">Ime :</label>
-                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
-                                          value="#{LogIn.lk.korisnik.ime}"/>
+                            <b><h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                          value="#{LogIn.lk.korisnik.ime}"/></b>
                         </p>
                         <p>
                             <label class="ami-labela">Prezime :</label>
-                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
-                                          value="#{LogIn.lk.korisnik.prezime}"/>
+                            <b><h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                             value="#{LogIn.lk.korisnik.prezime}"/></b>
                         </p>
                         <p>
                             <label class="ami-labela">Rola :</label>
-                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
-                                          value="#{LogIn.lk.korisnik.rola}"/>
+                            <b><h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                             value="#{LogIn.lk.korisnik.rola}"/></b>
                         </p>
                         <p>
                             <label class="ami-labela">Korisničko ime :</label>
-                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
-                                          value="#{LogIn.lk.korisnik.ime}"/>
+                            <b><h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                             value="#{LogIn.lk.korisnik.ime}"/></b>
                         </p>
                     </li>
                 </ul>
@@ -124,31 +124,40 @@
                     <li class="w3-small">
                         <p>
                             <label class="ami-labela">Stara zaporka:</label>
-                            <h:inputSecret 
+                            <h:inputSecret value="#{LogIn.pass}"
                                          style="width: 60%"
-                                     class="w3-border-0 w3-border-green w3-border-bottom " />
+                                     class="w3-border-0 w3-border-teal w3-border-bottom " />
                         </p>
                         <p>
                             <label class="ami-labela">Nova zaporka :</label>
-                            <h:inputSecret
+                            <h:inputSecret value="#{LogIn.newPass}"
                                          style="width: 60%"
-                                     class="w3-border-0 w3-border-green w3-border-bottom " />
+                                     class="w3-border-0 w3-border-teal w3-border-bottom " />
                         </p>
                         <p>
                             <label class="ami-labela">Ponovi novu zaporku :</label>
-                            <h:inputSecret
+                            <h:inputSecret value="#{LogIn.confirmPass}"
                                          style="width: 60%"
-                                     class="w3-border-0 w3-border-green w3-border-bottom " />
+                                     class="w3-border-0 w3-border-teal w3-border-bottom " />
                         </p>
                         <p>
-                            <h:commandButton class="w3-btn w3-teal" value="Potvrdi"/>
+                            <h:commandButton id="promjenaPass" 
+                                             action="#{LogIn.promjenaPass()}"
+                                             class="w3-btn w3-teal " 
+                                             value="Potvrdi"/>
                         </p>
                     </li>
                                       
                 </ul>
+                <h5>                    
+                    <h:message class="w3-container w3-pale-yellow w3-leftbar w3-border-yellow"
+                                        for="promjenaPass" />                     
+                </h5>
                 <br/>  
             </div>   
+            
         <!--kraj Unosa sadržaja -->
+                
         </h:form>
         
         </div>

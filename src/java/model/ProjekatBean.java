@@ -22,9 +22,9 @@ public class ProjekatBean {
     private String projectDuration;//Trajanje projekta npr. 2012-2016
     private String Objectives;//Sažetak ciljevi i rezultati
     //private ArrayList<TFBParticipant> paticipants;//Ucesnici sa tfb-a
-    private String projectPath;
+    private String projectPath; 
     private String participants;
-    private String fileName;
+    private String fileName;//Skraćeno ime projekta
     
 
     public ProjekatBean() {
@@ -174,6 +174,7 @@ public class ProjekatBean {
     }
 
     /**
+     * Skraćeno ime projekta
      * @return the fileName
      */
     public String getFileName() {
@@ -181,6 +182,7 @@ public class ProjekatBean {
     }
 
     /**
+     * Skraćeno ime projekta
      * @param fileName the fileName to set
      */
     public void setFileName(String fileName) {

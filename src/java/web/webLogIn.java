@@ -6,6 +6,7 @@
 package web;
 
 import Login.loginKontroler;
+import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,11 +22,36 @@ public class webLogIn {
     private Login.loginKontroler lk = new loginKontroler();
     //private Login.login korisnik;
     private String user, pass;
-    private boolean testRegistracije;
+    private boolean testRegistracije, testUnosa;
+    private String newPass, confirmPass;
     
 
     public webLogIn() {
          setTestRegistracije(false);
+    }
+    
+    /**
+     * Unosi novog korisnika
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
+    public String unesiNovogKorisnika() throws NoSuchAlgorithmException{
+        if(getNewPass().contains(getConfirmPass()) && getNewPass().length()>0){
+            lk.getNoviKorisnik().setPass(getNewPass());
+            lk.dodajOsobu(lk.getNoviKorisnik());
+            setTestUnosa(true);
+            FacesMessage message = new FacesMessage("Uspješno dodavanje novog korisnika!!!");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("unosNovogKorisnika:btnNoviKorisnik", message);
+        } else
+        {
+            setTestUnosa(false);
+            FacesMessage message = new FacesMessage("Unešene vrijednosti "
+                    + "za zaporke nisu iste !!!");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("unosNovogKorisnika:btnNoviKorisnik", message);
+    }
+        return null;
     }
     
     public String registracija(){
@@ -44,7 +70,8 @@ public class webLogIn {
     
     public String logOff(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();        
-        lk.setKorisnici(null);        
+        lk.setKorisnici(null);  
+        lk.setKorisnik(null);
         setTestRegistracije(false);
         return "index";        
     }
@@ -105,6 +132,48 @@ public class webLogIn {
      */
     public void setTestRegistracije(boolean testRegistracije) {
         this.testRegistracije = testRegistracije;
+    }
+
+    /**
+     * @return the newPass
+     */
+    public String getNewPass() {
+        return newPass;
+    }
+
+    /**
+     * @param newPass the newPass to set
+     */
+    public void setNewPass(String newPass) {
+        this.newPass = newPass;
+    }
+
+    /**
+     * @return the confirmPass
+     */
+    public String getConfirmPass() {
+        return confirmPass;
+    }
+
+    /**
+     * @param confirmPass the confirmPass to set
+     */
+    public void setConfirmPass(String confirmPass) {
+        this.confirmPass = confirmPass;
+    }
+
+    /**
+     * @return the testUnosa
+     */
+    public boolean isTestUnosa() {
+        return testUnosa;
+    }
+
+    /**
+     * @param testUnosa the testUnosa to set
+     */
+    public void setTestUnosa(boolean testUnosa) {
+        this.testUnosa = testUnosa;
     }
     
     

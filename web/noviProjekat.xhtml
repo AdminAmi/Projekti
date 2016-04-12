@@ -17,15 +17,7 @@
         <style>
             html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
             .w3-sidenav a {padding:16px;font-weight:bold}
-            .stavka{display: none;}
-            :-moz-placeholder {
-            color: #ccc;
-            }
- 
-            ::-webkit-input-placeholder {
-            color: #ccc;
-             }
-             *:focus {outline: none;}
+            .stavka{display: none;}          
         </style>
         <title>TFB Projekti</title>
     </h:head>    
@@ -48,31 +40,34 @@
            
             <h:commandLink id="pocetna"                           
                            value="Početna"  
-                           class="w3-small tablinks" 
+                           class="w3-small " 
                            action="main"
+                           />                      
+            <h:commandLink id="pretrazivanjePr"                           
+                           value="Pretraživanje projekata" 
+                           class="w3-small  "
                            />
+            <br/><br/>            
             <h:commandLink id="noviPr"                           
                            value="Unos novog projekta" 
-                           class="w3-small  "                          
-                           />
-            <h:commandLink id="azuriranjePr"                           
-                           value="Ažuriranje" 
-                           class="w3-small  "                           
-                           />
-            <h:commandLink id="pretrazivanjePr"                           
-                           value="Pretraživanje" 
                            class="w3-small  "
-                           />
-            <h:commandLink id="sviPr"                           
-                           value="Ispis svih projekata"  
-                           class="w3-small  "
-                           />
-            
+                           action="noviProjekat"
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
+                           /> 
             <h:commandLink id="loginPr"                           
                            value="Promjena korisničkih podataka" 
                            class="w3-small  "
                            action="promjenaPod"
+                           rendered="${LogIn.lk.korisnik.rola!='guest'}"
                            /> 
+             <h:commandLink id="noviKor"                            
+                           value="Unos novog korisnika" 
+                           class="w3-small  "
+                           action="noviKorisnik"
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
+                           /> 
+            
+            
             <br/><br/>
             <h:commandLink id="loginOff"                           
                            value="Odjava" 
@@ -98,50 +93,55 @@
             
         <!--Unos sadržaja -->  
         <h:form id="Unos">
-            <div  class="w3-container w3-padding-jumbo ">                
+            <div  class="w3-container w3-padding-jumbo w3-small ">                
                 <h1 class="w3-text-teal">Unos novog projekta</h1>
                 <h5>Ispunite sljedeća polja:</h5>
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
-                    <li class="w3-small">
+                    <li class="ami-li">
                         <p>
-                            <label>Naslov projekta:</label> 
+                            <label class="ami-labela">Naslov projekta:</label> 
                             <h:inputText value="#{projekat.projekatUnos.projectTitle}"
-                                         style="width: 100%"
-                                     class="w3-border-0 w3-border-green w3-border-bottom " />
+                                         style="width: 80%"
+                                     class="w3-border w3-border-green w3-border-bottom " />
                         </p>
+                    </li>
+                    <li class="ami-li">
                         <p>
-                            <label>Naziv donatora:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom  "   
-                                         style="width: 100%"
+                            <label class="ami-labela">Naziv donatora:</label>
+                            <h:inputText class="w3-border w3-border-green w3-border-bottom  "   
+                                         style="width: 80%"
                                          value="#{projekat.projekatUnos.donorsOfProject}" />
                         </p>
-                       
+                    </li >
+                    <li class="ami-li">  
                         <p>
-                            <label>Mjesto održavanja projekta:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom " 
-                                         style="width: 100%"
+                            <label class="ami-labela">Mjesto održavanja projekta:</label>
+                            <h:inputText class="w3-border w3-border-green w3-border-bottom " 
+                                         style="width: 80%"
                                          value="#{projekat.projekatUnos.location}" />
                         </p>               
-                        
+                    </li> 
+                    <li class="ami-li">
                         <p>
-                            <label>Ukupni iznos projekta:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom "  
-                                         style="width: 100%"
+                            <label class="ami-labela">Ukupni iznos projekta:</label>
+                            <h:inputText class="w3-border w3-border-green "  
+                                         style="width: 80%"
                                          value="#{projekat.projekatUnos.cost}" />
                         </p>
-                        
-                        
+                    </li>
+                    <li class="ami-li">
                         <p>
-                            <label>Ukupni iznos dobijen od donatora:</label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom "  
-                                         style="width: 100%"
+                            <label class="ami-labela">Ukupni iznos dobijen od donatora:</label>
+                            <h:inputText class="w3-border w3-border-green  "  
+                                         style="width: 80%"
                                          value="#{projekat.projekatUnos.ammountOfDonors}" />
                         </p>
-                        
+                    </li>
+                    <li class="ami-li">
                         <p>
-                            <label>Uloga u projektu</label>
-                            <h:selectOneMenu class="w3-select"  
-                                             style="width: 15%"
+                            <label class="ami-labela">Uloga u projektu</label>
+                            <h:selectOneMenu class="w3-select w3-border w3-border-green"  
+                                             style="width: 80%"
                                              value="#{projekat.projekatUnos.roleInProject}" >
                                 <f:selectItem itemValue="Coordinator" itemDescription="Coordinator"/>
                                 <f:selectItem itemValue="Co-applicant" itemDescription="Co-applicant"/>
@@ -149,18 +149,20 @@
                             </h:selectOneMenu> 
                             
                         </p>
-                                                
+                    </li>
+                    <li class="ami-li">                           
                         <p>
-                            <label>Vrijeme trajanja projekta </label>
-                            <h:inputText class="w3-border-0 w3-border-green w3-border-bottom "         
-                                         style="width: 100%"
+                            <label class="ami-labela" >Vrijeme trajanja projekta </label>
+                            <h:inputText class="w3-border w3-border-green "         
+                                         style="width: 80%"
                                          value="#{projekat.projekatUnos.projectDuration}" />                                            
-                        </p>
-                       
-                        
+                        </p>                       
+                    </li> 
+                    <li class="ami-li">
                         <p>
-                            <label>Ciljevi projekta</label>
-                            <h:inputTextarea class="w3-input w3-border-green w3-border-left "
+                            <label class="ami-labela">Ciljevi projekta</label>
+                            <h:inputTextarea class="w3-input w3-border-green w3-border "
+                                             style="width: 80%"
                                              cols="30" rows="6"
                                              value="#{projekat.projekatUnos.objectives}" />
                         </p>

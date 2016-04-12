@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="css/w3.css" library="resources"/>
@@ -58,7 +59,7 @@
                            action="promjenaPod"
                            rendered="${LogIn.lk.korisnik.rola!='guest'}"
                            /> 
-             <h:commandLink id="noviKor"                           
+             <h:commandLink id="noviKor"                            
                            value="Unos novog korisnika" 
                            class="w3-small  "
                            action="noviKorisnik"
@@ -91,13 +92,72 @@
             
         <!--Unos sadržaja -->    
             <div  class="w3-container w3-padding-jumbo ">                
-                <h1 class="w3-text-teal">Aplikacija za pregled projekata</h1>
-                <h5>Ova aplikacija Vam omogućuje:</h5>
+                <h1 class="w3-text-teal">Unos novog korisnika</h1>
+                <h5>Unesite Vaše podatke:</h5>
+                <h:form id="unosNovogKorisnika">
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
-                    <li>Pregled svih projekata koji su u bazi</li>
-                    <li>Pretraživanje projekata</li>
-                    <li>Download projekta</li>                    
-                </ul>
+                    
+                    <li class="w3-small">
+                        <p>
+                            <label class="ami-labela">Ime :</label>
+                            <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                         style="width: 80%"
+                                         value="#{LogIn.lk.noviKorisnik.ime}"/>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Prezime :</label>
+                            <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                         style="width: 80%"
+                                         value="#{LogIn.lk.noviKorisnik.prezime}"/>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Rola :</label>
+                            <h:selectOneMenu class="w3-select w3-border w3-border-teal"  
+                                             style="width: 80%"
+                                             value="#{LogIn.lk.noviKorisnik.rola}" >
+                                <f:selectItem itemValue="admin" itemDescription="Administrator"/>
+                                <f:selectItem itemValue="korisnik" itemDescription="Korisnik"/>
+                                <f:selectItem itemValue="gost" itemDescription="gost"/>
+                            </h:selectOneMenu> 
+                        </p>
+                        <p>
+                            <label class="ami-labela">Korisničko ime :</label>
+                            <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                         style="width: 80%"
+                                         value="#{LogIn.lk.noviKorisnik.user}"/>
+                        </p>                
+                        
+                        <p>
+                            <label class="ami-labela">Nova zaporka :</label>
+                            <h:inputSecret value="#{LogIn.newPass}"
+                                         style="width: 80%"
+                                     class="w3-border-0 w3-border-teal w3-border-bottom " />
+                        </p>
+                        <p>
+                            <label class="ami-labela">Potvrdi zaporku :</label>
+                            <h:inputSecret value="#{LogIn.confirmPass}"
+                                         style="width: 80%"
+                                     class="w3-border-0 w3-border-teal w3-border-bottom " />
+                        </p>
+                        <p>
+                            <h:commandButton class="w3-btn w3-teal" 
+                                             id="btnNoviKorisnik"
+                                             value="Unesi"
+                                             action="#{LogIn.unesiNovogKorisnika()}"/>
+                        </p>  
+                        
+                    </li>                                      
+                </ul>   
+                    
+                <h5> 
+                    <br/>
+                    <h:message class="w3-container w3-pale-yellow w3-leftbar w3-border-yellow"
+                                        for="btnNoviKorisnik" /> 
+                    <br/>
+                </h5> 
+                   
+                    
+                </h:form>
                 <br/>  
             </div>   
         <!--kraj Unosa sadržaja -->

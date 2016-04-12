@@ -19,6 +19,7 @@ import model.utility;
 public class loginKontroler {
     private ArrayList<login> korisnici = new ArrayList<>();
     private login korisnik = new login();
+    private login noviKorisnik = new login();
     private zaXML xml = new zaXML();
     
     public loginKontroler(){
@@ -96,6 +97,20 @@ public class loginKontroler {
      */
     public void setKorisnik(login korisnik) {
         this.korisnik = korisnik;
+    }
+
+    /**
+     * @return the noviKorisnik
+     */
+    public login getNoviKorisnik() {
+        return noviKorisnik;
+    }
+
+    /**
+     * @param noviKorisnik the noviKorisnik to set
+     */
+    public void setNoviKorisnik(login noviKorisnik) {
+        this.noviKorisnik = noviKorisnik;
     }
     
 }

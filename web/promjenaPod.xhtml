@@ -37,33 +37,36 @@
                class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <br/>
            
-            <h:commandLink id="pocetna"                           
+           <h:commandLink id="pocetna"                           
                            value="Početna"  
-                           class="w3-small "  
+                           class="w3-small " 
                            action="main"
+                           />                      
+            <h:commandLink id="pretrazivanjePr"                           
+                           value="Pretraživanje projekata" 
+                           class="w3-small  "
                            />
+            <br/><br/>            
             <h:commandLink id="noviPr"                           
                            value="Unos novog projekta" 
                            class="w3-small  "
                            action="noviProjekat"
-                           />
-            <h:commandLink id="azuriranjePr"                           
-                           value="Ažuriranje" 
-                           class="w3-small  "                           
-                           />
-            <h:commandLink id="pretrazivanjePr"                           
-                           value="Pretraživanje" 
-                           class="w3-small  "
-                           />
-            <h:commandLink id="sviPr"                           
-                           value="Ispis svih projekata"  
-                           class="w3-small  "
-                           />
-            
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
+                           /> 
             <h:commandLink id="loginPr"                           
                            value="Promjena korisničkih podataka" 
                            class="w3-small  "
+                           action="promjenaPod"
+                           rendered="${LogIn.lk.korisnik.rola!='guest'}"
                            /> 
+             <h:commandLink id="noviKor"                           
+                           value="Unos novog korisnika" 
+                           class="w3-small  "
+                           action="noviKorisnik"
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
+                           /> 
+            
+            
             <br/><br/>
             <h:commandLink id="loginOff"                           
                            value="Odjava" 
@@ -91,20 +94,54 @@
         <h:form id="AzuriranjeKorisnika">
             <div  class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Promjena ličnih podataka korisnika</h1>
-                <h5>U formi možete promjeniti podatke:</h5>
+                <h5>Vaši lični podatci su:</h5>
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
                     <li class="w3-small">
                         <p>
-                            <label>Ime :</label>
-                            <h:inputText value="#{LogIn.lk.korisnik.ime}"
-                                         style="width: 100%"
+                            <label class="ami-labela">Ime :</label>
+                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                          value="#{LogIn.lk.korisnik.ime}"/>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Prezime :</label>
+                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                          value="#{LogIn.lk.korisnik.prezime}"/>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Rola :</label>
+                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                          value="#{LogIn.lk.korisnik.rola}"/>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Korisničko ime :</label>
+                            <h:outputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                          value="#{LogIn.lk.korisnik.ime}"/>
+                        </p>
+                    </li>
+                </ul>
+                <h5>Promjena zaporke korisnika:</h5>
+                <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
+                    <li class="w3-small">
+                        <p>
+                            <label class="ami-labela">Stara zaporka:</label>
+                            <h:inputSecret 
+                                         style="width: 60%"
                                      class="w3-border-0 w3-border-green w3-border-bottom " />
                         </p>
                         <p>
-                            <label>Prezime :</label>
-                            <h:inputText value="#{LogIn.lk.korisnik.prezime}"
-                                         style="width: 100%"
+                            <label class="ami-labela">Nova zaporka :</label>
+                            <h:inputSecret
+                                         style="width: 60%"
                                      class="w3-border-0 w3-border-green w3-border-bottom " />
+                        </p>
+                        <p>
+                            <label class="ami-labela">Ponovi novu zaporku :</label>
+                            <h:inputSecret
+                                         style="width: 60%"
+                                     class="w3-border-0 w3-border-green w3-border-bottom " />
+                        </p>
+                        <p>
+                            <h:commandButton class="w3-btn w3-teal" value="Potvrdi"/>
                         </p>
                     </li>
                                       
@@ -115,8 +152,7 @@
         </h:form>
         
         </div>
-    </c:if>
-    
+    </c:if>    
         
         <c:if test="${LogIn.testRegistracije != true }" >          
        

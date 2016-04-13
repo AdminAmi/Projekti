@@ -5,7 +5,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <h:outputStylesheet name="css/w3.css" library="resources"/>
+        <h:outputStylesheet name="css/w3.css" library="resources"/>        
         <h:outputStylesheet name="css/w3-theme-teal.css" library="resources"/>
         <h:outputScript name="js/myJS.js" library="resources"/>
         <link href='https://fonts.googleapis.com/css?family=RobotoDraft' 
@@ -17,22 +17,22 @@
             html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
             .w3-sidenav a {padding:16px;font-weight:bold}
             .stavka{display: none;}
+           
         </style>
         <title>TFB Projekti</title>
     </h:head>    
     <h:body onload="GreskaProzor()" > 
     <c:if test="${LogIn.testRegistracije == true }">
         <h:form id="navigacija">     
-        <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center" 
-             style="z-index:50;width:250px;">
-            <!--<a href="#" class=" w3-large w3-center"> -->
-                <h:graphicImage value="/resources/img/tfbgrb.png" 
+        <nav   class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" 
+             style="display:none" >
+            <h:graphicImage value="/resources/img/tfbgrb.png" 
                                 alt="Grb" 
                                 style="width: 73.5%" 
                                 class="w3-circle  w3-margin-top  w3-margin-bottom">
-                </h:graphicImage>
+            </h:graphicImage>
                 <br/>
-            <!--</a>-->           
+                  
             <a href="javascript:void(0)" onclick="w3_close()" 
                class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <br/>           
@@ -73,9 +73,12 @@
                            action="#{LogIn.logOff()}"
                            /> 
         </nav>
-        </h:form>         
+        </h:form> 
+        
+        
+        
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
-        <div class="w3-main" style="margin-left:250px;">
+        <div  class="w3-main ami-stranica" >
         <!--Header Unosi -->
             <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large">
                 <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
@@ -84,6 +87,7 @@
             </div>
 
             <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo ">
+                
                 <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1>
                 <p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p>
             </header>

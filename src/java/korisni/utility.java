@@ -1,8 +1,10 @@
-package model;
+package korisni;
 
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 /**
  *
  * @author amel
@@ -27,6 +29,17 @@ public class utility {
         }
          
         return sb.toString();
+    }
+
+    /**
+     * Prosljeđuje poruku na akciju određene web komponente
+     * @param komponenta
+     * @param poruka
+     */
+    public static void poruka(String komponenta, String poruka){
+        FacesMessage message = new FacesMessage(poruka);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(komponenta, message);
     }
     
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web;
+package Login;
 
 import Login.loginKontroler;
 import java.security.NoSuchAlgorithmException;
@@ -11,7 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import model.utility;
+import korisni.utility;
 
 /**
  *
@@ -20,10 +20,9 @@ import model.utility;
 @SessionScoped
 @ManagedBean (name="LogIn")
 public class webLogIn {
-    private Login.loginKontroler lk = new loginKontroler();
-    //private Login.login korisnik;
+    private Login.loginKontroler lk = new loginKontroler();    
     private String user, pass;
-    private boolean testRegistracije, testUnosa;
+    private boolean testRegistracije;
     private String newPass, confirmPass;
     
 
@@ -31,18 +30,22 @@ public class webLogIn {
          setTestRegistracije(false);
     }
     
+    private void reset(){
+        setUser(""); setPass(""); setNewPass(""); setConfirmPass("");
+    }
+    
     public String promjenaPass() throws NoSuchAlgorithmException{
         if(lk.getKorisnik().getPass().contains(utility.sha1(getPass()))
                 && getNewPass().contains(getConfirmPass())){
             lk.getKorisnik().setPass(newPass);
             lk.azurirajOsobu(lk.getKorisnik());
-            FacesMessage message = new FacesMessage("Uspješna promjena zaporke!!!");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("AzuriranjeKorisnika:promjenaPass", message);        
+            utility.poruka("AzuriranjeKorisnika:promjenaPass", 
+                    "Uspješna promjena zaporke!!!");
+            reset();
             } else {
-            FacesMessage message = new FacesMessage("Neuspješna promjena zaporke!!!");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("AzuriranjeKorisnika:promjenaPass", message); 
+            utility.poruka("AzuriranjeKorisnika:promjenaPass", 
+                    "Neuspješna promjena zaporke!!!"); 
+            reset();
         }            
         return null;
     }
@@ -52,43 +55,40 @@ public class webLogIn {
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public String unesiNovogKorisnika() throws NoSuchAlgorithmException{
+    public String unesiNovogKorisnika() throws NoSuchAlgorithmException {
         if(getNewPass().contains(getConfirmPass()) && getNewPass().length()>0){
             lk.getNoviKorisnik().setPass(getNewPass());
-            lk.dodajOsobu(lk.getNoviKorisnik());
-            setTestUnosa(true);
-            FacesMessage message = new FacesMessage("Uspješno dodavanje novog korisnika!!!");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("unosNovogKorisnika:btnNoviKorisnik", message);
-        } else
-        {
-            setTestUnosa(false);
-            FacesMessage message = new FacesMessage("Unešene vrijednosti "
-                    + "za zaporke nisu iste !!!");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("unosNovogKorisnika:btnNoviKorisnik", message);
-    }
+            lk.dodajOsobu(lk.getNoviKorisnik());            
+            utility.poruka("unosNovogKorisnika:btnNoviKorisnik",
+                    "Uspješno dodavanje novog korisnika!!!");
+            reset();
+            
+        } else {            
+            utility.poruka("unosNovogKorisnika:btnNoviKorisnik",
+                    "Unešene vrijednosti za zaporke nisu iste!!!");
+            reset();
+        }
         return null;
     }
     
     public String registracija(){
         if(lk.LogIN(user, pass)) {
             setTestRegistracije(true);
+            reset();
             return "main";
         }
         else {
             setTestRegistracije(false);
-            FacesMessage message = new FacesMessage("   Neuspješna prijava na sistem !!!   ");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("loginForm:myButton", message);
+            reset();
+            utility.poruka("loginForm:myButton","Neuspješna prijava na sistem!!!");           
         }
         return null;
     }
     
     public String logOff(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();        
-        lk.setKorisnici(null);  
-        lk.setKorisnik(null);
+        lk=null;        
+        reset();
         setTestRegistracije(false);
         return "index";        
     }
@@ -179,19 +179,6 @@ public class webLogIn {
         this.confirmPass = confirmPass;
     }
 
-    /**
-     * @return the testUnosa
-     */
-    public boolean isTestUnosa() {
-        return testUnosa;
-    }
-
-    /**
-     * @param testUnosa the testUnosa to set
-     */
-    public void setTestUnosa(boolean testUnosa) {
-        this.testUnosa = testUnosa;
-    }
     
     
 }

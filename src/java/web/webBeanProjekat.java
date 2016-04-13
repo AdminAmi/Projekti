@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import kontroler.ProjekatKontroler;
 import model.ProjekatBean;
-import model.utility;
+import korisni.utility;
 
 /**
  *

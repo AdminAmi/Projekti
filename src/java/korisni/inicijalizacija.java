@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Login;
+package korisni;
 
+import Login.login;
+import Login.loginKontroler;
+import Login.zaXML;
 import java.security.NoSuchAlgorithmException;
-import model.utility;
+import korisni.utility;
 
 /**
  *
@@ -19,7 +22,7 @@ public class inicijalizacija {
      */
     public static void main(String[] args) throws NoSuchAlgorithmException {
         // TODO code application logic here
-        login korisnik = new login("ami", "mepifiki0309975", "Amel", "Džanić", "admin");
+        login korisnik = new login("ami", "123456", "Amel", "Džanić", "admin");
         login korisnik1 = new login("g", "g", "Gost", "Gost", "guest");
         login korisnik2 = new login("a", "a", "Test", "Test", "admin");
         zaXML xml = new zaXML();                

@@ -22,80 +22,32 @@
         <title>TFB Projekti</title>
     </h:head>   
     
-    <h:body onload="GreskaProzor()" > 
+    <h:body onload="GreskaProzor();w3_openMeni();" > 
     <c:if test="${LogIn.testRegistracije == true }">
+        <!-- Poćetak forme NAVIGACIJA -->
         <h:form id="navigacija">     
-        <nav   class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" 
-             style="display:none" >
-            <h:graphicImage value="/resources/img/tfbgrb.png" 
-                                alt="Grb" 
-                                style="width: 73.5%" 
-                                class="w3-circle  w3-margin-top  w3-margin-bottom">
-            </h:graphicImage>
-                <br/>
-                  
-            <a href="javascript:void(0)" onclick="w3_close()" 
-               class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
+        <nav class="w3-sidenav w3-light-grey w3-card-2 w3-center" style="display:none" >
+            <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 73.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"/> 
+            <br/>                  
+            <a href="javascript:void(0)" onclick="w3_closeMeni()" class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <br/>           
-            <h:commandLink id="pocetna"                           
-                           value="Početna"  
-                           class="w3-small " 
-                           action="main"
-                           />                      
-            <h:commandLink id="pretrazivanjePr"                           
-                           value="Pretraživanje projekata" 
-                           class="w3-small  "
-                           />
+            <h:commandLink id="pocetna"  value="Početna"  class="w3-small " action="main" />                      
+            <h:commandLink id="pretrazivanjePr" value="Pretraživanje projekata" class="w3-small" />
             <br/><br/>            
-            <h:commandLink id="noviPr"                           
-                           value="Unos novog projekta" 
-                           class="w3-small  "
-                           action="noviProjekat"
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
-                           /> 
-            <h:commandLink id="loginPr"                           
-                           value="Promjena korisničkih podataka" 
-                           class="w3-small  "
-                           action="promjenaPod"
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}"
-                           /> 
-             <h:commandLink id="noviKor"                           
-                           value="Unos novog korisnika" 
-                           class="w3-small  "
-                           action="noviKorisnik"
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
-                           /> 
-             <h:commandLink id="tT"                           
-                           value="Test" 
-                           class="w3-small"
-                           action="test"
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
-                           />
-            
-            
+            <h:commandLink id="noviPr" value="Unos novog projekta" action="noviProjekat" rendered="${LogIn.lk.korisnik.rola=='admin'}"/> 
+            <h:commandLink id="loginPr" value="Promjena korisničkih podataka" class="w3-small" action="promjenaPod" rendered="${LogIn.lk.korisnik.rola!='guest'}"/> 
+            <h:commandLink id="noviKor" value="Unos novog korisnika" class="w3-small" action="noviKorisnik" rendered="${LogIn.lk.korisnik.rola=='admin'}"/> 
+            <h:commandLink id="tT"  value="Test"  class="w3-small" action="test" rendered="${LogIn.lk.korisnik.rola=='admin'}" />
             <br/><br/>
-            <h:commandLink id="loginOff"                           
-                           value="Odjava" 
-                           class="w3-small  "
-                           action="#{LogIn.logOff()}"
-                           /> 
-            
+            <h:commandLink id="loginOff" value="Odjava" class="w3-small" action="#{LogIn.logOff()}" />             
         </nav>
         </h:form> 
-        
-        
-        
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
-        <div  class="w3-main ami-stranica" >
+        <!-- Kraj forme navigacija -->
+        <div  class="w3-main">
         <!--Header Unosi -->
-            <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large">
-                <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
-                <span id="myIntro" class="w3-hide">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA <br/>
-                    <p class="w3-small"><b> Korisnik :#{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b></p></span>
-            </div>
-
+       
             <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo ">
-                
+                <span class="w3-opennav w3-xlarge" onclick="w3_openMeni()">&#9776;</span>
                 <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1>
                 <p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p>
             </header>

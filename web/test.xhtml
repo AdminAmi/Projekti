@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <h:outputStylesheet name="css/w3.css" library="resources"/>        
+        <h:outputStylesheet name="css/w3-theme-teal.css" library="resources"/>
+        <h:outputScript name="js/myJS.js" library="resources"/>
+        <link href='https://fonts.googleapis.com/css?family=RobotoDraft' 
+              rel='stylesheet' 
+              type='text/css'/>
+        <link rel="stylesheet" 
+        href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <style>
+            html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
+            .w3-sidenav a {padding:16px;font-weight:bold}
+            .stavka{display: none;}
+           
+        </style>
+    </h:head>
+    <h:body onload="w3_openMeni()">
+        <h:form>
+        <nav class="w3-sidenav w3-light-grey w3-card-2 w3-center" style="display:none">
+            
+            <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 60.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"/>
+            <a href="javascript:void(0)" onclick="w3_closeMeni()" class="w3-closenav w3-large">Close &times;</a>
+            <br/>                  
+                      
+            <h:commandLink id="pocetna"  value="Početna"  class="w3-small " action="main" />                      
+            <h:commandLink id="pretrazivanjePr" value="Pretraživanje projekata" class="w3-small" />
+            <br/><br/>            
+            <h:commandLink id="noviPr" value="Unos novog projekta" action="noviProjekat" rendered="${LogIn.lk.korisnik.rola=='admin'}"/> 
+            <h:commandLink id="loginPr" value="Promjena korisničkih podataka" class="w3-small" action="promjenaPod" rendered="${LogIn.lk.korisnik.rola!='guest'}"/> 
+            <h:commandLink id="noviKor" value="Unos novog korisnika" class="w3-small" action="noviKorisnik" rendered="${LogIn.lk.korisnik.rola=='admin'}"/> 
+            <h:commandLink id="tT"  value="Test"  class="w3-small" action="test" rendered="${LogIn.lk.korisnik.rola=='admin'}" />
+            <br/><br/>
+            <h:commandLink id="loginOff" value="Odjava" class="w3-small" action="#{LogIn.logOff()}" />    		
+        </nav>
+        </h:form>
+        <div id="main">        
+            
+
+            <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo">
+                <span class="w3-opennav w3-xlarge" onclick="w3_openMeni()">&#9776; Meni</span>
+                <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1>
+                <p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p>
+            </header>
+
+            
+
+            <div class="w3-container w3-padding-jumbo">
+            <h1 class="w3-text-teal">Aplikacija za pregled projekata</h1>
+                <h5>Ova aplikacija Vam omogućuje:</h5>
+                <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
+                    <li>Pregled svih projekata koji su u bazi</li>
+                    <li>Pretraživanje projekata</li>
+                    <li>Download projekta</li>                    
+                </ul>
+                <br/> 
+            </div>
+        </div>
+    </h:body>
+</html>
+

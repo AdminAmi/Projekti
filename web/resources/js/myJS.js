@@ -58,3 +58,24 @@ function w3_closeMeni() {
   document.getElementsByClassName("w3-opennav")[0].style.display = "inline-block";
 }
 
+function printPage() {
+    var content = document.getElementById("main").innerHTML;
+    var i, j, c = document.getElementById("main").cloneNode(true);
+    for (i = 0; i < c.childNodes.length; i++) {
+        //bio u if-u : && c.childNodes[i].getAttribute("id") == "mainLeaderboard"
+        if (c.childNodes[i].nodeType == 1 ) {
+            c.removeChild(c.childNodes[i]);
+            content = c.innerHTML;
+            break;
+        }
+    }
+    var head = document.getElementsByTagName("head")[0].innerHTML;
+
+    var myWindow=window.open('','','');
+    myWindow.document.write("<html><head>"+head+
+            "<style>body{padding:15px;}@media print {.printbtn {display:none;}}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
+            +content+"</body></html>");
+}
+
+
+

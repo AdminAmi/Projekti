@@ -5,98 +5,56 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <h:outputStylesheet name="css/w3.css" library="resources"/>
+       <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <h:outputStylesheet name="css/w3.css" library="resources"/>        
         <h:outputStylesheet name="css/w3-theme-teal.css" library="resources"/>
         <h:outputScript name="js/myJS.js" library="resources"/>
-        <link href='https://fonts.googleapis.com/css?family=RobotoDraft' 
-              rel='stylesheet' 
-              type='text/css'/>
-        <link rel="stylesheet" 
-        href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
         <style>
             html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
             .w3-sidenav a {padding:16px;font-weight:bold}
-            .stavka{display: none;}
         </style>
         <title>TFB Projekti</title>
     </h:head>    
     <h:body onload="GreskaProzor()" > 
     <c:if test="${LogIn.testRegistracije == true }">
-        <h:form id="navigacija">     
-        <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center" 
-             style="z-index:50;width:250px;">
-            <!--<a href="#" class=" w3-large w3-center"> -->
-                <h:graphicImage value="/resources/img/tfbgrb.png" 
-                                alt="Grb" 
-                                style="width: 73.5%" 
-                                class="w3-circle  w3-margin-top  w3-margin-bottom">
-                </h:graphicImage>
-                <br/>
-            <!--</a>-->           
-            <a href="javascript:void(0)" onclick="w3_close()" 
-               class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
+        <!-- Izgradnja forme menija -->
+        <h:form id="navigacija">           
+        <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" style="display:none" >
+            <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 73.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"> </h:graphicImage>
+            <br/>                  
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <br/>           
-            <h:commandLink id="pocetna"                           
-                           value="Početna"  
-                           class="w3-small " 
-                           action="main"
-                           />                      
-            <h:commandLink id="pretrazivanjePr"                           
-                           value="Pretraživanje projekata" 
-                           class="w3-small  "
-                           />
+            <h:commandLink id="pocetnaStranica"  value="Početna" class="w3-small" action="main"/>                      
+            <h:commandLink id="pretrazivanjeProjekata" value="Pretraživanje projekata" class="w3-small" action="pretrazivanjeProjekata" />
             <br/><br/>            
-            <h:commandLink id="noviPr"                           
-                           value="Unos novog projekta" 
-                           class="w3-small  "
-                           action="noviProjekat"
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
-                           /> 
-            <h:commandLink id="loginPr"                           
-                           value="Promjena korisničkih podataka" 
-                           class="w3-small  "
-                           action="promjenaPod"
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}"
-                           /> 
-             <h:commandLink id="noviKor"                            
-                           value="Unos novog korisnika" 
-                           class="w3-small  "
-                           action="noviKorisnik"
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}"
-                           /> 
-            
-            
+            <h:commandLink id="noviProjekat" value="Unos novog projekta" class="w3-small" action="noviProjekat" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+            <h:commandLink id="promjenaKorisnickihPodataka" value="Promjena korisničkih podataka"  class="w3-small" action="promjenaPod" rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
+            <h:commandLink id="unosNovogKorisnika" value="Unos novog korisnika" class="w3-small" action="noviKorisnik" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             <br/><br/>
-            <h:commandLink id="loginOff"                           
-                           value="Odjava" 
-                           class="w3-small  "
-                           action="#{LogIn.logOff()}"
-                           /> 
-        </nav>
-        </h:form>         
+            <a href="" class="w3-small " target="_blank" onclick="printPage();return false;">Štampaj stranicu</a>
+            <br/><br/>
+            <h:commandLink id="loginOff" value="Odjava" class="w3-small" action="#{LogIn.logOff()}" />             
+        </nav>            
+        </h:form> 
+        <!-- Kraj forme menija -->
+        
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
         <div class="w3-main" style="margin-left:250px;">
-        <!--Header Unosi -->
-            <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large">
-                <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
-                <span id="myIntro" class="w3-hide">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA <br/>
-                    <p class="w3-small"><b> Korisnik :#{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b></p></span>
+         <!--Header Unosi -->
+            <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large"> <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
+                <span id="myIntro" class="w3-hide">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA <br/><p class="w3-small"><b> Korisnik :#{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b></p></span>                                      
             </div>
-
-            <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo ">
-                <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1>
-                <p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p>
-            </header>
-        <!--Kraj header unosa -->    
+            <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo "> <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1><p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p></header>
+        <!--Kraj header unosa -->   
             
         <!--Unos sadržaja -->    
             <div  class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Unos novog korisnika</h1>
                 <h5>Unesite Vaše podatke:</h5>
                 <h:form id="unosNovogKorisnika">
-                <ul class="w3-leftbar  w3-theme-border" style="list-style-type:none">
-                    
+                <ul class="w3-leftbar  w3-theme-border" style="list-style-type:none">                    
                     <li class="w3-small">
                         <p>
                             <label class="ami-labela">Ime :</label>
@@ -125,13 +83,12 @@
                             <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
                                          style="width: 80%"
                                          value="#{LogIn.lk.noviKorisnik.user}"/>
-                        </p>                
-                        
+                        </p> 
                         <p>
                             <label class="ami-labela">Nova zaporka :</label>
                             <h:inputSecret value="#{LogIn.newPass}"
                                          style="width: 80%"
-                                     class="w3-border-0 w3-border-teal w3-border-bottom " />
+                                         class="w3-border-0 w3-border-teal w3-border-bottom " />
                         </p>
                         <p>
                             <label class="ami-labela">Potvrdi zaporku :</label>
@@ -144,77 +101,42 @@
                                              id="btnNoviKorisnik"
                                              value="Unesi"
                                              action="#{LogIn.unesiNovogKorisnika()}"/>
-                        </p>  
-                        
+                        </p>
                     </li>                                      
-                </ul>   
-                    
+                </ul> 
                 <h5> 
                     <br/>
-                    <h:message class="w3-container w3-pale-yellow w3-leftbar w3-border-yellow"
-                                        for="btnNoviKorisnik" /> 
+                    <h:message class="w3-container w3-pale-yellow w3-leftbar w3-border-yellow" for="btnNoviKorisnik" /> 
                     <br/>
-                </h5> 
-                   
-                    
-                </h:form>
-                <br/>  
+                </h5>                    
+                </h:form>              
             </div>   
-        <!--kraj Unosa sadržaja -->
-       
-        
+        <!--kraj Unosa sadržaja -->        
         </div>
     </c:if>
-    
-        
-        <c:if test="${LogIn.testRegistracije != true }" >          
-       
-         
-           <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->  
-                <h:form id="Greska" >
-                <div id="modal" class="w3-modal">       
-                    <div class="w3-modal-content w3-card-8 w3-animate-zoom" 
-                        style="max-width:600px">
-                        <header class="w3-container w3-red">
-                            <h2>Nedozvoljen pristup!!!</h2>
-                        </header>
+    <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
+    <c:if test="${LogIn.testRegistracije != true }" > 
+       <h:form id="Greska" >
+            <div id="modal" class="w3-modal">       
+                <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
+                    <header class="w3-container w3-red"><h2>Nedozvoljen pristup!!!</h2></header>
                     <div class="w3-center"><br/>
-                    <!--Slika -->
-                    <h:graphicImage value="/resources/img/tfbgrb.png" 
-                                alt="Grb" 
-                                style="width: 35%" 
-                                class="w3-circle w3-margin-top">
-                    </h:graphicImage>        
+                        <h:graphicImage value="/resources/img/tfbgrb.png"  alt="Grb" style="width: 35%"  class="w3-circle w3-margin-top"/>
                     </div>
-                    <!-- Forma za registraciju -->
                     <div class="w3-container">
                         <div class="w3-section">
-                            <p class="w3-center w3-medium">
-                                Niste logovani na sistem.
-                                Morate se logovati!!!<br/>                                
-                            </p>
-                            <h:commandButton value="Povratak na formu za registraciju"
-                                     id="myButton"
-                                     class="w3-btn w3-btn-block w3-red w3-section w3-round-jumbo"
-                                     action="index"/>          
-                                              
+                            <p class="w3-center w3-medium">Niste logovani na sistem. Morate se logovati!!!<br/></p>
+                            <h:commandButton value="Povratak na formu za registraciju" id="myButton" class="w3-btn w3-btn-block w3-red w3-section w3-round-jumbo" action="index"/>          
                         </div>
-                    </div>    
-                    <p id="demo"></p>
-                    <!-- Kraj forme za registraciju -->
+                    </div> 
                     <footer class="w3-container w3-red w3-right-align"> 
                         <p>Autor Amel Džanić</p>
                     </footer>
-                    </div>
                 </div>
-                    
-    </h:form>       
-            
-            
-        
-     </c:if>
-        
-        
+            </div>                    
+        </h:form>         
+    </c:if>
+    <!-- Kraj MODAL DIALOGA ZA GRESKU-->         
     </h:body>
 </html>
 

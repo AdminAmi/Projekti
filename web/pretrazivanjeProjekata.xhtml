@@ -4,22 +4,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <h:outputStylesheet name="css/w3.css" library="resources"/>        
-        <h:outputStylesheet name="css/w3-theme-teal.css" library="resources"/>
-        <h:outputScript name="js/myJS.js" library="resources"/>
-        <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
-        <style>
-            html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
-            .w3-sidenav a {padding:16px;font-weight:bold}
-        </style>
-        <title>TFB Projekti</title>
-    </h:head>   
-    
-    <h:body  onload="GreskaProzor()" > 
-    <c:if test="${LogIn.testRegistracije == true }"> 
-        <!-- Izgradnja forme menija -->
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <!-- Izgradnja forme menija -->
         <h:form id="navigacija">           
         <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" style="display:none" >
             <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 73.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"> </h:graphicImage>
@@ -40,32 +28,10 @@
         </h:form> 
         <!-- Kraj forme menija -->
         
-        <!--Početak sadržaja stranice -->
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
-        <div id="main" class="w3-main ami-stranica" >
-        <!--Header Unosi -->
-            <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large"> <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
-                <span id="myIntro" class="w3-hide">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA <br/><p class="w3-small"><b> Korisnik :#{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b></p></span>                                      
-            </div>
-            <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo "> <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1><p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p></header>
-        <!--Kraj header unosa -->    
-            
-        <!--Unos sadržaja -->    
-            <div  class="w3-container w3-padding-jumbo ">                
-                <h1 class="w3-text-teal">Aplikacija za pregled projekata</h1>
-                <h5>Ova aplikacija Vam omogućuje:</h5>
-                <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
-                    <li>Pregled svih projekata koji su u bazi</li>
-                    <li>Pretraživanje projekata</li>
-                    <li>Download projekta</li>                    
-                </ul>
-                <br/>  
-            </div>   
-        <!--kraj Unosa sadržaja -->        
-        </div>
-        <!--Kraj sadržaja stranice -->
-   </c:if> 
-   <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
+        
+        
+        
+        <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
    <c:if test="${LogIn.testRegistracije != true }" > 
        <h:form id="Greska" >
             <div id="modal" class="w3-modal">       
@@ -80,12 +46,14 @@
                             <h:commandButton value="Povratak na formu za registraciju" id="myButton" class="w3-btn w3-btn-block w3-red w3-section w3-round-jumbo" action="index"/>          
                         </div>
                     </div> 
-                    <footer class="w3-container w3-red w3-right-align"><p>Autor Amel Džanić</p></footer>
+                    <footer class="w3-container w3-red w3-right-align"> 
+                        <p>Autor Amel Džanić</p>
+                    </footer>
                 </div>
             </div>                    
         </h:form>         
      </c:if>
-    <!-- Kraj MODAL DIALOGA ZA GRESKU-->        
+    <!-- Kraj MODAL DIALOGA ZA GRESKU--> 
     </h:body>
 </html>
 

@@ -76,6 +76,20 @@ function printPage() {
             "<style>body{padding:15px;}@media print {.printbtn {display:none;}}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
             +content+"</body></html>");
 }
+//edituje formu na event tastature
+//<h:form id="YourForm" onkeypress ="if (event.keyCode == 84) {saveForm(); return false;}; return true;">
+//        <h:inputHidden id="hiddenSave" action="YourBean.SaveAction"/>
+//</h:form>
+function saveForm(){
+     if (event.keyCode == 84){
+          document.getElementById('YourForm:hiddenSave').click();
+          return false;
+     }
+     return true;
+}
 
-
+function err(){
+    document.write('<header class="w3-container w3-red"><h2>Nedozvoljen pristup!!!</h2></header><div class="w3-center"><br/><img value="../resources/img/tfbgrb.png"  alt="Grb" style="width: 35%"  class="w3-circle w3-margin-top"/></div><div class="w3-container"><div class="w3-section"><p class="w3-center w3-medium">Niste logovani na sistem. Morate se logovati!!!<br/></p></div></div> <footer class="w3-container w3-red w3-right-align"><p>Autor Amel Džanić</p></footer></div></div></h:form>');
+    document.getElementById("modal").style.display="block";
+}
 

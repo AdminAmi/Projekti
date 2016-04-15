@@ -17,8 +17,9 @@
         </style>
         <title>TFB Projekti</title>
     </h:head>    
-    <h:body onload="GreskaProzor()" > 
-    <c:if test="${LogIn.testRegistracije == true }">
+    <h:body onload="GreskaProzor()" >
+    
+        <c:if test="${(LogIn.testRegistracije==true)and(LogIn.lk.korisnik.rola=='admin')}">
         <!-- Izgradnja forme menija -->
         <h:form id="navigacija">           
         <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" style="display:none" >
@@ -115,7 +116,7 @@
         </div>
     </c:if>
     <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
-    <c:if test="${LogIn.testRegistracije != true }" > 
+    <c:if test="${LogIn.testRegistracije !=true } " > 
        <h:form id="Greska" >
             <div id="modal" class="w3-modal">       
                 <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">

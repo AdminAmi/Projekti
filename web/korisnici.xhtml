@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="css/w3.css" library="resources"/>        
@@ -10,10 +11,7 @@
         <h:outputScript name="js/myJS.js" library="resources"/>
         <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
-        <style>
-            html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
-            .w3-sidenav a {padding:16px;font-weight:bold}
-        </style>
+        <style>html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;} .w3-sidenav a {padding:16px;font-weight:bold}  </style>
         <title>TFB Projekti</title>
     </h:head>   
     
@@ -55,16 +53,61 @@
             <div  class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Pretraživanje korisnika</h1>
                 <h5>Unesite tražene podatke</h5>
+                <h:form id="pretraga">
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
                     <li>
-                        <p>
+                        <p>                            
                             <label class="ami-labela">Ime :</label>
                             <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
                                          style="width: 80%"
-                                         value="#{LogIn.lk.noviKorisnik.ime}"/>
+                                         value="#{LogIn.imePretraga}"/>
                         </p>
-                    </li>                    
+                    </li>
+                    <li>
+                        <p>
+                            <h:commandButton class="w3-btn w3-teal " 
+                                             id="btnPretragaKorisnika"
+                                             value="Pretraži"
+                                             action="#{LogIn.pretraga()}"/> 
+                           
+                            
+                        </p>
+                    </li> 
                 </ul>
+                    <h5> <h:outputText value="Rezultati pretrage su:" rendered="#{not empty LogIn.lk.pretraga}"/></h5>
+                <ul class="w3-leftbar w3-theme-border w3-pale-green" style="list-style-type:none">                    
+                    <li>                       
+                        <p>                            
+                        <h:dataTable id="spisakKorisnika" 
+                                     class="w3-table w3-striped " 
+                                     style="width: 80%" 
+                                     rendered="#{not empty LogIn.lk.pretraga}"
+                                     value="#{LogIn.lk.pretraga}" 
+                                     var="Korisnik">
+                            <h:column class="w3-white" > 
+                                <f:facet name="header">ID</f:facet>#{Korisnik.id}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Ime</f:facet>#{Korisnik.ime}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Prezime</f:facet>#{Korisnik.prezime}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Korisničko ime</f:facet>#{Korisnik.user}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Rola</f:facet>#{Korisnik.rola}
+                            </h:column>
+                        
+                        </h:dataTable>
+                        </p>
+                       
+                    </li>
+                    
+                </ul>                        
+                   
+                </h:form>
                 <br/>  
             </div>   
         <!--kraj Unosa sadržaja -->        

@@ -18,6 +18,7 @@ import korisni.utility;
  */
 public class loginKontroler {
     private ArrayList<login> korisnici = new ArrayList<>();
+    private ArrayList<login> pretraga = new ArrayList<>();
     private login korisnik = new login();
     private login noviKorisnik = new login();
     private zaXML xml = new zaXML();
@@ -27,6 +28,11 @@ public class loginKontroler {
         if (korisnici.isEmpty()) this.setKorisnici(xml.procitajIzXMLa());        
     } catch (JAXBException ex) { }
         
+    }
+       
+    public void pretragaPoImenu(String ime){
+        if (ime==null || ime.length()==0) return ;
+        for(login kor:korisnici) {if (kor.getIme().contains(ime)) getPretraga().add(kor);}
     }
     public int generateId(){
         int  temp=-1;  
@@ -113,6 +119,20 @@ public class loginKontroler {
      */
     public void setNoviKorisnik(login noviKorisnik) {
         this.noviKorisnik = noviKorisnik;
+    }
+
+    /**
+     * @return the pretraga
+     */
+    public ArrayList<login> getPretraga() {
+        return pretraga;
+    }
+
+    /**
+     * @param pretraga the pretraga to set
+     */
+    public void setPretraga(ArrayList<login> pretraga) {
+        this.pretraga = pretraga;
     }
     
 }

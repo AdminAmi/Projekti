@@ -73,7 +73,7 @@ function printPage() {
 
     var myWindow=window.open('','','');
     myWindow.document.write("<html><head>"+head+
-            "<style>body{padding:15px;}@media print {.printbtn {display:none;}}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
+            "<style>body{padding:15px;}@media print {.printbtn {display:none;}body{ background-color:#FFFFFF; background-image:none; color:#000000; width:100% }}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
             +content+"</body></html>");
 }
 //edituje formu na event tastature

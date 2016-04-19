@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp">
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="css/w3.css" library="resources"/>        
@@ -56,13 +57,13 @@
                 <h1 class="w3-text-teal">Pretraživanje korisnika</h1>
                 <h5>Unesite tražene podatke</h5>
                 <h:form id="pr" >
-                <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
+                <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
                     <li>
                         <p>                            
                             <label class="ami-labela">Ime :</label>
                             <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
                                          style="width: 80%"
-                                         value="#{LogIn.imePretraga}"/>
+                                         value="#{webKorisnik.imePretraga}"/>
                         </p>
                     </li>
                     <li>
@@ -70,7 +71,7 @@
                             <h:commandButton class="w3-btn w3-teal " 
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
-                                             action="#{LogIn.pretraga()}">
+                                             action="#{webKorisnik.pretraga()}">
                                 <f:ajax  execute="@form" render="pr:prK"/>
                             </h:commandButton>
                            
@@ -79,32 +80,31 @@
                     </li> 
                 </ul>
                 <h5> 
-                    <h:outputText value="Rezultati pretrage su: " />
-                    <c:if test="#{ LogIn.lk.pretraga.size()==0}"> Za dati unos nema rezultata </c:if>
+                    <h:outputText value="Rezultati pretrage su: " />                    
                 </h5>
-                <ul class="w3-leftbar w3-theme-border w3-pale-green" style="list-style-type:none">                    
+                <ul class="w3-leftbar w3-theme-border w3-pale-green w3-small" style="list-style-type:none">                    
                     <li> 
-                        <!-- rendered="#{not empty LogIn.lk.pretraga}"-->
+                        
                         <p>                            
                         <h:dataTable id="prK" 
                                      class="w3-table w3-striped " 
                                      style="width: 80%"                                     
-                                     value="#{LogIn.lk.pretraga}" 
+                                     value="#{webKorisnik.lk.pretraga}" 
                                      var="Korisnik">
                             <h:column class="w3-white" > 
                                 <f:facet name="header">ID</f:facet>#{Korisnik.id}
-                            </h:column>
+                            </h:column>                           
                             <h:column> 
-                                <f:facet name="header">Ime</f:facet>#{Korisnik.ime}
-                            </h:column>
-                            <h:column> 
-                                <f:facet name="header">Prezime</f:facet>#{Korisnik.prezime}
+                                <f:facet name="header">Ime i prezime</f:facet>
+                                <a jsf:outcome="noviKorisnik_1" > #{Korisnik.ime} #{Korisnik.prezime}
+                                    <f:param name="ID" value="#{Korisnik.id}"/>                                
+                                </a>
                             </h:column>
                             <h:column> 
                                 <f:facet name="header">Korisničko ime</f:facet>#{Korisnik.user}
                             </h:column>
                             <h:column> 
-                                <f:facet name="header">Rola</f:facet>#{Korisnik.rola}
+                                <f:facet name="header">Uloga</f:facet>#{Korisnik.rola}
                             </h:column>
                         
                         </h:dataTable>

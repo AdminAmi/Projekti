@@ -29,6 +29,12 @@ public class loginKontroler {
     } catch (JAXBException ex) { }
         
     }
+    public login getUserFromID(int id){
+        if(!korisnici.isEmpty()){
+            for(login selektovan: korisnici){if (selektovan.getId()==id) return selektovan;}
+        }
+        return null;
+    }
        
     public void pretragaPoImenu(String ime){
         if (ime==null || ime.length()==0) return ;

@@ -31,6 +31,7 @@ public class webBeanProjekat {
     
     private ProjekatKontroler PK = new ProjekatKontroler();
     private ProjekatBean projekatUnos= new ProjekatBean();
+    private String naziv;
     private ProjekatBean selektovani;
     private int selektovaniId;
     
@@ -55,23 +56,41 @@ public class webBeanProjekat {
     }
     
     public String snimi(){
-        if(projekatUnos == null) return "greska";
+        if(projekatUnos == null) {
+            utility.poruka("Unos:btnNoviPr", "Nije došlo do inicijalizacije objekta");
+            return null;
+        }
         if(!getFile().getSubmittedFileName().isEmpty()){
             projekatUnos.setProjectPath(getFile().getSubmittedFileName());
             try (InputStream input = getFile().getInputStream()) {
                 Files.copy(input, new File(utility.putZaProjekte, getFile().getSubmittedFileName()).toPath());
             }
             catch (IOException e) {
-            // Show faces message?
+                utility.poruka("Unos:btnNoviPr", "Problem pri prenosu datoteke");
+                projekatUnos.setProjectPath("");  
+                // Show faces message?
             }
         }else{
             projekatUnos.setProjectPath("");            
         }
         if(PK.dodajProjekat(projekatUnos)) {
+            utility.poruka("Unos:btnNoviPr", "Uspješan unos Projekta");
             reset();
-            return "index";
+            return null;
         }
-        return "greska";
+        return null;
+    }
+    private void resetPretraga(){ PK.getPretraga().clear(); }
+    
+    public void pretragaProjekta(){
+        resetPretraga();
+        PK.nadjiProjekat(getNaziv());
+        setNaziv("");
+    }
+    public void dajSve(){
+        resetPretraga();
+        PK.izlistaj();
+        setNaziv("");
     }
     
     public String azuriraj (){
@@ -181,12 +200,26 @@ public class webBeanProjekat {
     public int getSelektovaniId() {
         return selektovaniId;
     }
-
+    
     /**
      * @param selektovaniId the selektovaniId to set
      */
     public void setSelektovaniId(int selektovaniId) {
         this.selektovaniId = selektovaniId;
+    }
+
+    /**
+     * @return the naziv
+     */
+    public String getNaziv() {
+        return naziv;
+    }
+
+    /**
+     * @param naziv the naziv to set
+     */
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
     
 }

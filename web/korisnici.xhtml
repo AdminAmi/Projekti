@@ -18,7 +18,7 @@
         
     </h:head>   
     
-    <h:body  onload="GreskaProzor()" > 
+    <h:body> 
     <c:if test="${LogIn.testRegistracije == true }"> 
         <!-- Izgradnja forme menija -->
         <h:form id="navigacija">           
@@ -40,52 +40,40 @@
             <h:commandLink id="loginOff" value="Odjava" class="w3-small" action="#{LogIn.logOff()}" />             
         </nav>            
         </h:form> 
-        <!-- Kraj forme menija -->
-        
+        <!-- Kraj forme menija -->        
         <!--Početak sadržaja stranice -->
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
-        <div id="main" class="w3-main ami-stranica" >
-        <!--Header Unosi -->
-            <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large"> <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
-                <span id="myIntro" class="w3-hide">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA <br/><p class="w3-small"><b> Korisnik :#{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b></p></span>                                      
-            </div>
-            <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo "> <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1><p><b>Korisnik: #{LogIn.lk.korisnik.ime} #{LogIn.lk.korisnik.prezime}</b><br/></p></header>
-        <!--Kraj header unosa -->    
-            
+        <div id="main" class="w3-main ami-stranica" >  
+            <comp:header Ime="#{LogIn.lk.korisnik.ime}" 
+                         Prezime="#{LogIn.lk.korisnik.prezime}" 
+                         isOK="#{LogIn.lk.korisnik.rola}" />              
         <!--Unos sadržaja -->    
             <div  class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Pretraživanje korisnika</h1>
                 <h5>Unesite tražene podatke</h5>
                 <h:form id="pr" >
                 <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
-                    <li>
-                        <p>                            
+                    <li><p>                            
                             <label class="ami-labela">Ime :</label>
                             <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
                                          style="width: 80%"
                                          value="#{webKorisnik.imePretraga}"/>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
+                        
+                    </p></li>
+                    <li><p>
                             <h:commandButton class="w3-btn w3-teal " 
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
                                              action="#{webKorisnik.pretraga()}">
                                 <f:ajax  execute="@form" render="pr:prK"/>
-                            </h:commandButton>
-                           
-                            
-                        </p>
-                    </li> 
+                            </h:commandButton>                        
+                    </p></li> 
                 </ul>
                 <h5> 
                     <h:outputText value="Rezultati pretrage su: " />                    
                 </h5>
                 <ul class="w3-leftbar w3-theme-border w3-pale-green w3-small" style="list-style-type:none">                    
-                    <li> 
-                        
-                        <p>                            
+                    <li><p>                                                   
                         <h:dataTable id="prK" 
                                      class="w3-table w3-striped " 
                                      style="width: 80%"                                     
@@ -105,13 +93,10 @@
                             </h:column>
                             <h:column> 
                                 <f:facet name="header">Uloga</f:facet>#{Korisnik.rola}
-                            </h:column>
-                        
-                        </h:dataTable>
-                        </p>                       
-                    </li>                    
-                </ul>                   
-                   
+                            </h:column>                        
+                        </h:dataTable>                                               
+                    </p></li>                    
+                </ul>            
                 </h:form>
                 <br/>  
             </div>   
@@ -122,8 +107,7 @@
    <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
    <c:if test="${LogIn.testRegistracije != true }" > 
        <comp:error/>  
-     </c:if>
-    <!-- Kraj MODAL DIALOGA ZA GRESKU-->        
+     </c:if>       
     </h:body>
 </html>
 

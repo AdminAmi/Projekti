@@ -23,9 +23,7 @@ public class webLogIn {
     private Login.loginKontroler lk = new loginKontroler();    
     private String user, pass;
     private boolean testRegistracije;
-    private String newPass, confirmPass;
-    private String imePretraga;
-    
+    private String newPass, confirmPass;  
 
     public webLogIn() {
          setTestRegistracije(false);
@@ -93,16 +91,7 @@ public class webLogIn {
         setTestRegistracije(false);
         return "index";        
     }
-    public void pretraga(){
-        resetLista();
-        lk.pretragaPoImenu(getImePretraga());
-        setImePretraga("");
-    }
-    private void resetLista(){lk.getPretraga().clear();}
     
-    public String noviProjekat(){ return "noviProjekat";  }
-    
-   
     /**
      * @return the lk
      */
@@ -185,22 +174,6 @@ public class webLogIn {
      */
     public void setConfirmPass(String confirmPass) {
         this.confirmPass = confirmPass;
-    }
-
-    /**
-     * @return the imePretraga
-     */
-    public String getImePretraga() {
-        return imePretraga;
-    }
-
-    /**
-     * @param imePretraga the imePretraga to set
-     */
-    public void setImePretraga(String imePretraga) {
-        this.imePretraga = imePretraga;
-    }
-
-    
+    }   
     
 }

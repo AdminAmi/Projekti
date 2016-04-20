@@ -2,12 +2,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-         <!-- Izgradnja forme menija -->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <h:outputStylesheet name="css/w3.css" library="resources"/>        
+        <h:outputStylesheet name="css/w3-theme-teal.css" library="resources"/>
+        <h:outputScript name="js/myJS.js" library="resources"/>
+        <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <style>html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;} .w3-sidenav a {padding:16px;font-weight:bold}  </style>
+        <title>TFB Projekti</title>
+        
+    </h:head>   
+    
+    <h:body> 
+    <c:if test="${LogIn.testRegistracije == true }"> 
+        <!-- Izgradnja forme menija -->
         <h:form id="navigacija">           
         <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" style="display:none" >
             <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 73.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"> </h:graphicImage>
@@ -20,40 +33,85 @@
             <h:commandLink id="noviProjekat" value="Unos novog projekta" class="w3-small" action="noviProjekat" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             <h:commandLink id="promjenaKorisnickihPodataka" value="Promjena korisničkih podataka"  class="w3-small" action="promjenaPod" rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
             <h:commandLink id="unosNovogKorisnika" value="Unos novog korisnika" class="w3-small" action="noviKorisnik" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+            <h:commandLink id="pretrazivanjeKorisnika" value="Pretraživanje korisnika"  class="w3-small" action="korisnici" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             <br/><br/>
             <a href="" class="w3-small " target="_blank" onclick="printPage();return false;">Štampaj stranicu</a>
             <br/><br/>
             <h:commandLink id="loginOff" value="Odjava" class="w3-small" action="#{LogIn.logOff()}" />             
         </nav>            
         </h:form> 
-        <!-- Kraj forme menija -->
-        
-        
-        
-        
-        <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
+        <!-- Kraj forme menija -->        
+        <!--Početak sadržaja stranice -->
+        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
+        <div id="main" class="w3-main ami-stranica" >  
+            <comp:header Ime="#{LogIn.lk.korisnik.ime}" 
+                         Prezime="#{LogIn.lk.korisnik.prezime}" 
+                         isOK="#{LogIn.lk.korisnik.rola}" />              
+        <!--Unos sadržaja -->    
+            <div  class="w3-container w3-padding-jumbo ">                
+                <h1 class="w3-text-teal">Pretraživanje projekata</h1>
+                <h5>Unesite tražene podatke</h5>
+                <h:form id="pr" >
+                <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                    <li><p>                            
+                            <label class="ami-labela">Skraćeni naziv projekta:</label>
+                            <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
+                                         style="width: 80%"
+                                         value="#{projekat.naziv}"/>
+                        
+                    </p></li>
+                    <br/>
+                    <h:commandLink value="Spisak svih projekata" action="#{projekat.dajSve()}"> 
+                        <f:ajax  execute="@form" render="pr:prK"/>
+                    </h:commandLink>
+                    <li><p>
+                            <h:commandButton class="w3-btn w3-teal " 
+                                             id="btnPretragaKorisnika"
+                                             value="Pretraži"
+                                             action="#{projekat.pretragaProjekta()}">
+                                <f:ajax  execute="@form" render="pr:prK"/>
+                            </h:commandButton>                        
+                    </p></li> 
+                </ul>
+                <h5> 
+                    <h:outputText value="Rezultati pretrage su: " />                    
+                </h5>
+                <ul class="w3-leftbar w3-theme-border w3-pale-green w3-small" style="list-style-type:none">                    
+                    <li><p>                                                   
+                         <h:dataTable id="prK" 
+                                     class="w3-table w3-striped " 
+                                     style="width: 80%"                                     
+                                     value="#{projekat.PK.pretraga}" 
+                                     var="Pr">
+                            <h:column class="w3-white" > 
+                                <f:facet name="header">ID</f:facet>#{Pr.id}
+                            </h:column>                           
+                            <h:column> 
+                                <f:facet name="header">Naziv projekta</f:facet>
+                                <a jsf:outcome="pregledProjekta" > #{Pr.projectTitle} 
+                                    <f:param name="ID" value="#{Pr.id}"/>                                
+                                </a>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Skraćeni naziv</f:facet>#{Pr.fileName}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Datoteka</f:facet>#{Pr.projectPath}
+                            </h:column>                        
+                        </h:dataTable>                                              
+                    </p></li>                    
+                </ul>            
+                </h:form>
+                <br/>  
+            </div>   
+        <!--kraj Unosa sadržaja -->        
+        </div>
+        <!--Kraj sadržaja stranice -->
+   </c:if> 
+   <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
    <c:if test="${LogIn.testRegistracije != true }" > 
-       <h:form id="Greska" >
-            <div id="modal" class="w3-modal">       
-                <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
-                    <header class="w3-container w3-red"><h2>Nedozvoljen pristup!!!</h2></header>
-                    <div class="w3-center"><br/>
-                        <h:graphicImage value="/resources/img/tfbgrb.png"  alt="Grb" style="width: 35%"  class="w3-circle w3-margin-top"/>
-                    </div>
-                    <div class="w3-container">
-                        <div class="w3-section">
-                            <p class="w3-center w3-medium">Niste logovani na sistem. Morate se logovati!!!<br/></p>
-                            <h:commandButton value="Povratak na formu za registraciju" id="myButton" class="w3-btn w3-btn-block w3-red w3-section w3-round-jumbo" action="index"/>          
-                        </div>
-                    </div> 
-                    <footer class="w3-container w3-red w3-right-align"> 
-                        <p>Autor Amel Džanić</p>
-                    </footer>
-                </div>
-            </div>                    
-        </h:form>         
-     </c:if>
-    <!-- Kraj MODAL DIALOGA ZA GRESKU--> 
+       <comp:error/>  
+     </c:if>       
     </h:body>
 </html>
 

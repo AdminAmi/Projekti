@@ -19,10 +19,12 @@ import zaXML.zaXML;
 public class ProjekatKontroler {
     private zaXML xml = new zaXML();
     private ArrayList<ProjekatBean> projekti = new ArrayList<>();
+    private ArrayList<ProjekatBean> pretraga = new ArrayList<>();
+    
 
     public ProjekatKontroler() {
-        if(projekti.isEmpty()) try {
-            this.setProjekti(xml.procitajIzXMLa());
+         try {
+            if(projekti.isEmpty()) this.setProjekti(xml.procitajIzXMLa());
         } catch (JAXBException ex) {
             Logger.getLogger(ProjekatKontroler.class.getName()).
                     log(Level.SEVERE, null, ex);
@@ -64,7 +66,8 @@ public class ProjekatKontroler {
     
     /**
      *
-     * @param pb
+     * @param selektovaniProjekat 
+     * @param id 
      * @return
      */
     public boolean azuirirajProjekat(ProjekatBean selektovaniProjekat, int id){
@@ -98,6 +101,15 @@ public class ProjekatKontroler {
         xml.smjesti(projekti);        
         return (pogodak!=-1 && xml.smjestiUXML());
 }
+     public void nadjiProjekat(String naziv){
+        for (ProjekatBean a1 : projekti) {        
+            if (a1.getFileName().contains(naziv)) getPretraga().add(a1);        
+        }
+        
+}
+     public void izlistaj(){
+         pretraga = (ArrayList<ProjekatBean>) projekti.clone();
+     }
     
     
     
@@ -114,6 +126,20 @@ public class ProjekatKontroler {
      */
     public void setProjekti(ArrayList<ProjekatBean> projekti) {
         this.projekti = projekti;
+    }
+
+    /**
+     * @return the pretraga
+     */
+    public ArrayList<ProjekatBean> getPretraga() {
+        return pretraga;
+    }
+
+    /**
+     * @param pretraga the pretraga to set
+     */
+    public void setPretraga(ArrayList<ProjekatBean> pretraga) {
+        this.pretraga = pretraga;
     }
      
      

@@ -1,13 +1,11 @@
 package Login;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 
 
@@ -22,16 +20,14 @@ public class WebKorisnik {
     private login selektovaniKorisnik = new login();
     private int selektovaniID;
     private String imePretraga;
-    private List<String> tipovi;
-    private String tip=("admin,korisnik,gost");
+    private List<String> tipovi = new ArrayList<>();   
 
     public WebKorisnik() {
     }
     
     @PostConstruct
-    public void init() {
-        
-    
+    public void init() {       
+    //inicijalizacijski kod za objekat bolje nego konstruiktor
     }
     @PreDestroy
     public void shutdown() {
@@ -39,7 +35,9 @@ public class WebKorisnik {
     }
     public void ucitajOsobu(){
         selektovaniKorisnik=lk.getUserFromID(getSelektovaniID());
-        setTipovi(new ArrayList<>(Arrays.asList(tip.split(","))));
+        getTipovi().add(0,"admin");
+        getTipovi().add(1,"korisnik");
+        getTipovi().add(2,"guest");       
     }
     
     public void pretraga(){

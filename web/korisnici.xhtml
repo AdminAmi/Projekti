@@ -72,13 +72,14 @@
                 <h5> 
                     <h:outputText value="Rezultati pretrage su: " />                    
                 </h5>
-                <ul class="w3-leftbar w3-theme-border w3-pale-green w3-small" style="list-style-type:none">                    
+                <ul class="w3-leftbar w3-theme-border w3-theme-light w3-small" style="list-style-type:none; width: 97%">                    
                     <li><p>                                                   
                         <h:dataTable id="prK" 
-                                     class="w3-table w3-striped " 
-                                     style="width: 80%"                                     
+                                     class="w3-table  w3-small " 
+                                     style="width: 100%"                                      
                                      value="#{webKorisnik.lk.pretraga}" 
                                      var="Korisnik">
+                            <thead>
                             <h:column class="w3-white" > 
                                 <f:facet name="header">ID</f:facet>#{Korisnik.id}
                             </h:column>                           
@@ -93,7 +94,8 @@
                             </h:column>
                             <h:column> 
                                 <f:facet name="header">Uloga</f:facet>#{Korisnik.rola}
-                            </h:column>                        
+                            </h:column> 
+                            </thead>
                         </h:dataTable>                                               
                     </p></li>                    
                 </ul>            

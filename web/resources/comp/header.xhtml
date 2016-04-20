@@ -17,17 +17,20 @@
             <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large"> 
                 <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" 
                    onclick="w3_open()"></i>
-                <span id="myIntro" class="w3-hide">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA 
-                    <br/><p class="w3-small"><b> Korisnik :#{cc.attrs.isOK}
+                <span id="myIntro" class="w3-hide"><h5><i>arhi</i><b>PROJEKAT</b></h5><!-- 
+                    <br/><p class="w3-small"> Korisnik :#{cc.attrs.isOK}                        
                             <h:outputText value="#{cc.attrs.Ime}" rendered="${cc.attrs.isOK=='admin'}"/>
-                             #{cc.attrs.Prezime}</b></p>
+                             #{cc.attrs.Prezime}</p>
+                        -->
                 </span>                                      
             </div>
             <header class="w3-container w3-theme w3-padding-32 w3-padding-jumbo "> 
-                <h1 class="w3-xxlarge w3-padding-8">WEB APLIKACIJA ZA ARHIVIRANJE PROJEKATA</h1>
-                <p><b>Korisnik: #{cc.attrs.isOK}
+                <h1 class="w3-xxlarge w3-padding-8"><i>arhi</i><b>PROJEKAT</b></h1>
+                <!--
+                <p>Korisnik: #{cc.attrs.isOK}
                             <h:outputText value="#{cc.attrs.Ime}" rendered="${cc.attrs.isOK=='admin'}"/>
-                             #{cc.attrs.Prezime}</b><br/></p>
+                             #{cc.attrs.Prezime}<br/></p>
+                -->
             </header>
         <!--Kraj header unosa -->  
         

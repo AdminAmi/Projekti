@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
@@ -38,6 +40,14 @@ public class webBeanProjekat {
     private Part file;
 
     public webBeanProjekat() {
+    }
+    @PostConstruct
+    public void init() {       
+    //inicijalizacijski kod za objekat bolje nego konstruiktor
+    }
+    @PreDestroy
+    public void shutdown() {
+    // shutdown code
     }
 
     public void reset(){

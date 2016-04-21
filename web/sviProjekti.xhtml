@@ -13,8 +13,9 @@
         <h:outputScript name="js/myJS.js" library="resources"/>
         <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
-        <style>html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;} .w3-sidenav a {padding:16px;font-weight:bold}  </style>
+        <style>html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;} #print{font-size: 12px;} .w3-sidenav a {padding:16px;font-weight:bold}  </style>
         <title>TFB Projekti</title>
+        
         
     </h:head>   
     
@@ -50,56 +51,35 @@
                          isOK="#{LogIn.lk.korisnik.rola}" />              
         <!--Unos sadržaja -->    
             <div  class="w3-container w3-padding-jumbo ">                
-                <h1 class="w3-text-teal">Pretraživanje korisnika</h1>
-                <h5>Unesite tražene podatke</h5>
+                <h1 class="w3-text-teal">Spisak svih projekata TFB-a</h1>                
                 <h:form id="pr" >
-                <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
-                    <li><p>                            
-                            <label class="ami-labela">Ime :</label>
-                            <h:inputText class="w3-border-0 w3-border-teal w3-border-bottom"
-                                         style="width: 80%"
-                                         value="#{webKorisnik.imePretraga}"/>
-                        
-                    </p></li>
-                    <li><p>
-                            <h:commandButton class="w3-btn w3-teal " 
-                                             id="btnPretragaKorisnika"
-                                             value="Pretraži"
-                                             action="#{webKorisnik.pretraga()}">
-                                <f:ajax  execute="@form" render="pr:prK"/>
-                            </h:commandButton>                        
-                    </p></li> 
-                </ul>
-                <h5> 
-                    <h:outputText value="Rezultati pretrage su: " />                    
-                </h5>
-                <ul class="w3-leftbar w3-theme-border w3-theme-light w3-small" style="list-style-type:none; width: 97%">                    
+                    <div id="print">
+                <ul class="w3-leftbar w3-theme-border w3-pale-green " style="list-style-type:none">                    
                     <li><p>                                                   
-                        <h:dataTable id="prK" 
-                                     class="w3-table  w3-small " 
-                                     style="width: 100%"                                      
-                                     value="#{webKorisnik.lk.pretraga}" 
-                                     var="Korisnik">
-                            <thead>
+                         <h:dataTable id="prK" 
+                                     class="w3-table w3-striped " 
+                                     style="width: 80%"                                     
+                                     value="#{projekat.PK.projekti}" 
+                                     var="Pr">
                             <h:column class="w3-white" > 
-                                <f:facet name="header">ID</f:facet>#{Korisnik.id}
+                                <f:facet name="header">ID</f:facet>#{Pr.id}
                             </h:column>                           
                             <h:column> 
-                                <f:facet name="header">Ime i prezime</f:facet>
-                                <a jsf:outcome="noviKorisnik_1" > #{Korisnik.ime} #{Korisnik.prezime}
-                                    <f:param name="ID" value="#{Korisnik.id}"/>                                
+                                <f:facet name="header">Naziv projekta</f:facet>
+                                <a jsf:outcome="pregledProjekta" > #{Pr.projectTitle} 
+                                    <f:param name="ID" value="#{Pr.id}"/>                                
                                 </a>
                             </h:column>
                             <h:column> 
-                                <f:facet name="header">Korisničko ime</f:facet>#{Korisnik.user}
+                                <f:facet name="header">Skraćeni naziv</f:facet>#{Pr.fileName}
                             </h:column>
                             <h:column> 
-                                <f:facet name="header">Uloga</f:facet>#{Korisnik.rola}
-                            </h:column> 
-                            </thead>
-                        </h:dataTable>                                               
+                                <f:facet name="header">Datoteka</f:facet>#{Pr.projectPath}
+                            </h:column>                        
+                        </h:dataTable>                                              
                     </p></li>                    
-                </ul>            
+                </ul> 
+                    </div>
                 </h:form>
                 <br/>  
             </div>   

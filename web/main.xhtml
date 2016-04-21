@@ -13,7 +13,11 @@
         <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
         <style>
-            html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif;}
+            html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif; }
+            ::-webkit-scrollbar { 
+                display: none; 
+            }
+            
             .w3-sidenav a {padding:16px;font-weight:bold}
         </style>
         <title>TFB Projekti</title>
@@ -31,6 +35,7 @@
             <br/>           
             <h:commandLink id="pocetnaStranica"  value="Početna" class="w3-small" action="main"/>                      
             <h:commandLink id="pretrazivanjeProjekata" value="Pretraživanje projekata" class="w3-small" action="pretrazivanjeProjekata" />
+            <h:commandLink id="sviProjekti" value="Spisak svih projekata" class="w3-small" action="sviProjekti" />
             <br/><br/>            
             <h:commandLink id="noviProjekat" value="Unos novog projekta" class="w3-small" action="noviProjekat" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             <h:commandLink id="promjenaKorisnickihPodataka" value="Promjena korisničkih podataka"  class="w3-small" action="promjenaPod" rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
@@ -64,33 +69,42 @@
                 <br/>  
             </div>   
         <!--kraj Unosa sadržaja -->    
-         <!--Unos sadržaja -->    
+        <!--Unos sadržaja -->    
             <div  class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Aplikacija za pregled projekata</h1>
                 <h5>Ova aplikacija Vam omogućuje:</h5>
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
                     <li>Pregled svih projekata koji su u bazi</li>
                     <li>Pretraživanje projekata</li>
-                    <li>Download projekta</li>                    
+                    <li>Download projekta</li>
+                    <li>#{LogIn.lk.korisnik.prezime} - prezime</li>                       
                 </ul>
                 <br/>  
             </div>   
-        <!--kraj Unosa sadržaja -->  
-         <!--Unos sadržaja -->    
+        <!--kraj Unosa sadržaja -->   
+        <!--Unos sadržaja -->    
             <div  class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Aplikacija za pregled projekata</h1>
                 <h5>Ova aplikacija Vam omogućuje:</h5>
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
                     <li>Pregled svih projekata koji su u bazi</li>
                     <li>Pretraživanje projekata</li>
-                    <li>Download projekta</li>                    
+                    <li>Download projekta</li>
+                    <li>#{LogIn.lk.korisnik.prezime} - prezime</li>                       
                 </ul>
                 <br/>  
             </div>   
-        <!--kraj Unosa sadržaja -->  
+        <!--kraj Unosa sadržaja -->
+        <!--Bezeze rad na footeru
+        <div id="foot"  class="w3-display-container w3-padding-4 w3-teal w3-bottom w3-tiny ">            
+             Autor : Amel Džanić 
+        </div>
+        -->
         </div>
        
         <!--Kraj sadržaja stranice -->
+       
+
    </c:if> 
    <!-- iZGRADNJA MODAL DIALOGA ZA GRESKU-->
    <c:if test="${LogIn.testRegistracije != true }" > 

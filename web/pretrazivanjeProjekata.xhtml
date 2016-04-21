@@ -20,15 +20,16 @@
     
     <h:body> 
     <c:if test="${LogIn.testRegistracije == true }"> 
-        <!-- Izgradnja forme menija -->
-        <h:form id="navigacija">           
+         <!-- Izgradnja forme menija -->
+         <h:form id="navigacija">           
         <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-card-2 w3-center ami-meni" style="display:none" >
-            <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 73.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"> </h:graphicImage>
+            <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 55.5%" class="w3-circle  w3-margin-top  w3-margin-bottom"> </h:graphicImage>
             <br/>                  
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-text-teal w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <br/>           
             <h:commandLink id="pocetnaStranica"  value="Početna" class="w3-small" action="main"/>                      
             <h:commandLink id="pretrazivanjeProjekata" value="Pretraživanje projekata" class="w3-small" action="pretrazivanjeProjekata" />
+            <h:commandLink id="sviProjekti" value="Spisak svih projekata" class="w3-small" action="sviProjekti" />
             <br/><br/>            
             <h:commandLink id="noviProjekat" value="Unos novog projekta" class="w3-small" action="noviProjekat" rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             <h:commandLink id="promjenaKorisnickihPodataka" value="Promjena korisničkih podataka"  class="w3-small" action="promjenaPod" rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
@@ -39,8 +40,8 @@
             <br/><br/>
             <h:commandLink id="loginOff" value="Odjava" class="w3-small" action="#{LogIn.logOff()}" />             
         </nav>            
-        </h:form> 
-        <!-- Kraj forme menija -->        
+         </h:form> 
+         <!--Kraj forme menija -->     
         <!--Početak sadržaja stranice -->
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer"></div>
         <div id="main" class="w3-main ami-stranica" >  
@@ -60,10 +61,7 @@
                                          value="#{projekat.naziv}"/>
                         
                     </p></li>
-                    <br/>
-                    <h:commandLink value="Spisak svih projekata" action="#{projekat.dajSve()}"> 
-                        <f:ajax  execute="@form" render="pr:prK"/>
-                    </h:commandLink>
+                    
                     <li><p>
                             <h:commandButton class="w3-btn w3-teal " 
                                              id="btnPretragaKorisnika"

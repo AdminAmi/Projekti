@@ -25,6 +25,7 @@ public class ProjekatKontroler {
     public ProjekatKontroler() {
          try {
             if(projekti.isEmpty()) this.setProjekti(xml.procitajIzXMLa());
+            
         } catch (JAXBException ex) {
             Logger.getLogger(ProjekatKontroler.class.getName()).
                     log(Level.SEVERE, null, ex);
@@ -108,7 +109,9 @@ public class ProjekatKontroler {
         
 }
      public void izlistaj(){
-         pretraga = (ArrayList<ProjekatBean>) projekti.clone();
+        for (ProjekatBean a1 : projekti) {        
+            getPretraga().add(a1);
+        }
      }
     
     

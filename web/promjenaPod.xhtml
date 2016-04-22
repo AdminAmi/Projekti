@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp">
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="css/w3.css" library="resources"/>
@@ -52,7 +53,7 @@
                          isOK="#{LogIn.lk.korisnik.rola}" />  
         <!--Unos sadržaja -->    
         <h:form id="AzuriranjeKorisnika">
-            <div  class="w3-container w3-padding-jumbo ">                
+            <div id="pc" class="w3-container w3-padding-jumbo ">                
                 <h1 class="w3-text-teal">Promjena ličnih podataka korisnika</h1>
                 <h5>Vaši lični podatci su:</h5>
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
@@ -104,15 +105,26 @@
                             <h:commandButton id="promjenaPass" 
                                              action="#{LogIn.promjenaPass()}"
                                              class="w3-btn w3-teal " 
-                                             value="Potvrdi"/>
+                                             value="Potvrdi">
+                            <f:ajax  execute="@form" render="@form"/>
+                            </h:commandButton>
+                                
                         </p>
                     </li>
                                       
                 </ul>
+                <c:if test="${LogIn.zastavica}"><comp:dialogOK IDButton="promjenaPass"/></c:if>                    
+                <c:if test="${(LogIn.zastavica !=true) and (LogIn.serverResponse>0)}">
+                    <comp:dialogNO IDButton="promjenaPass"/>
+                </c:if>
+                <!--
+                <c:if test="${LogIn.zastavica}"><comp:dialogOK IDButton="promjenaPass"/></c:if>                    
+                <c:if test="${LogIn.zastavica !=true}"><comp:dialogNO IDButton="promjenaPass"/></c:if> 
                 <h5>                    
                     <h:message class="w3-container w3-pale-yellow w3-leftbar w3-border-yellow"
                                         for="promjenaPass" />                     
                 </h5>
+                -->
                 <br/>  
             </div>   
             

@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Login;
 
 import Login.loginKontroler;
+import com.sun.org.apache.bcel.internal.util.Objects;
 import java.security.NoSuchAlgorithmException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -22,11 +18,15 @@ import korisni.utility;
 public class webLogIn {
     private Login.loginKontroler lk = new loginKontroler();    
     private String user, pass;
-    private boolean testRegistracije;
+    private boolean testRegistracije, zastavica=false;
     private String newPass, confirmPass;  
+    private int serverResponse = 0;
+    
+    
 
     public webLogIn() {
          setTestRegistracije(false);
+         reset();
     }
     
     private void reset(){
@@ -34,14 +34,18 @@ public class webLogIn {
     }
     
     public String promjenaPass() throws NoSuchAlgorithmException{
-        if(lk.getKorisnik().getPass().contains(utility.sha1(getPass()))
-                && getNewPass().contains(getConfirmPass())){
+        serverResponse++;
+        if(lk.getKorisnik().getPass().equals(utility.sha1(getPass()) ) &&
+                (getNewPass().equals(getConfirmPass())) ) {
+        
             lk.getKorisnik().setPass(newPass);
             lk.azurirajOsobu(lk.getKorisnik());
+            setZastavica(true);
             utility.poruka("AzuriranjeKorisnika:promjenaPass", 
-                    "Uspješna promjena zaporke!!!");
+                    "Uspješna promjena zaporke!!!");            
             reset();
             } else {
+            setZastavica(false);
             utility.poruka("AzuriranjeKorisnika:promjenaPass", 
                     "Neuspješna promjena zaporke!!!"); 
             reset();
@@ -52,10 +56,11 @@ public class webLogIn {
     /**
      * Unosi novog korisnika
      * @return
-     * @throws NoSuchAlgorithmException
+     * @throws NoSuchAlgorithmException     * 
      */
     public String unesiNovogKorisnika() throws NoSuchAlgorithmException {
-        if(getNewPass().contains(getConfirmPass()) && getNewPass().length()>0){
+        serverResponse++;
+        if( getNewPass().equals(getConfirmPass()) && getNewPass().length()>0){
             lk.getNoviKorisnik().setPass(getNewPass());
             lk.dodajOsobu(lk.getNoviKorisnik());            
             utility.poruka("unosNovogKorisnika:btnNoviKorisnik",
@@ -175,5 +180,33 @@ public class webLogIn {
     public void setConfirmPass(String confirmPass) {
         this.confirmPass = confirmPass;
     }   
+
+    /**
+     * @return the zastavica
+     */
+    public boolean isZastavica() {
+        return zastavica;
+    }
+
+    /**
+     * @param zastavica the zastavica to set
+     */
+    public void setZastavica(boolean zastavica) {
+        this.zastavica = zastavica;
+    }
+
+    /**
+     * @return the serverResponse
+     */
+    public int getServerResponse() {
+        return serverResponse;
+    }
+
+    /**
+     * @param serverResponse the serverResponse to set
+     */
+    public void setServerResponse(int serverResponse) {
+        this.serverResponse = serverResponse;
+    }
     
 }

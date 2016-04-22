@@ -87,7 +87,8 @@ public class loginKontroler {
         } else {
             for (login a1 : korisnici) {
                 try {
-                    if (a1.getUser().contains(user) && a1.getPass().contains(utility.sha1(pass))){
+//                    if (a1.getUser().contains(user) && a1.getPass().contains(utility.sha1(pass))){
+                    if(a1.getUser().equals(user)&& a1.getPass().equals(utility.sha1(pass))){
                         setKorisnik(a1);
                         return true;
                     }

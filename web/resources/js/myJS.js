@@ -75,6 +75,9 @@ function printPage() {
     myWindow.document.write("<html><head>"+head+
             "<style>body{padding:15px;} @media print {.printbtn {display:none;}body{ background-color:#FFFFFF; background-image:none; color:#000000; width:100%;#print{font-size: 10px;} }}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
             +content+"</body></html>");
+   /* window.alert("<html><head>"+head+
+            "<style>body{padding:15px;} @media print {.printbtn {display:none;}body{ background-color:#FFFFFF; background-image:none; color:#000000; width:100%;#print{font-size: 10px;} }}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
+            +content+"</body></html>");*/
 }
 //edituje formu na event tastature
 //<h:form id="YourForm" onkeypress ="if (event.keyCode == 84) {saveForm(); return false;}; return true;">

@@ -7,8 +7,6 @@ package korisni;
 
 import Login.login;
 import Login.loginKontroler;
-import Login.webLogIn;
-import com.sun.org.apache.xalan.internal.utils.Objects;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -19,6 +17,7 @@ public class testReg {
 
     /**
      * @param args the command line arguments
+     * @throws java.security.NoSuchAlgorithmException
      */
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Login.loginKontroler lk = new loginKontroler();
@@ -26,9 +25,9 @@ public class testReg {
         String oldPass ="a", pass="a" , newPass ="R";
         login userFromID = lk.getUserFromID(2);
        
-        System.out.println(Objects.equals(userFromID.getPass(), utility.sha1(oldPass)));
-        System.out.println(userFromID.getPass());
-        System.out.println(utility.sha1(oldPass));
+//        System.out.println(Objects.equals(userFromID.getPass(), utility.sha1(oldPass)));
+//        System.out.println(userFromID.getPass());
+//        System.out.println(utility.sha1(oldPass));
         
         System.out.println(userFromID.getPass().equals(utility.sha1(oldPass)));
         System.out.println(userFromID.getPass());

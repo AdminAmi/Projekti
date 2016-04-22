@@ -62,10 +62,19 @@ public class loginKontroler {
         korisnici.get(log.getId()).setPrezime(log.getPrezime());
         korisnici.get(log.getId()).setRola(log.getRola());
         korisnici.get(log.getId()).setUser(log.getUser());
-        korisnici.get(log.getId()).setPass(utility.sha1(log.getPass()));
+        if(log.getPass().length()>0) 
+            korisnici.get(log.getId()).setPass(utility.sha1(log.getPass()));
         xml.smjesti(korisnici); 
         return xml.smjestiUXML();
     }
+    
+   public boolean obrisiOsobu(login log){
+       for(login kor:korisnici) {
+           if (kor.getId() == log.getId())  
+               korisnici.remove(kor.getId());
+       }
+       return xml.smjestiUXML();
+   }
 
     /**
      * @return the korisnici

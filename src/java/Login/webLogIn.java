@@ -2,7 +2,6 @@
 package Login;
 
 import Login.loginKontroler;
-import com.sun.org.apache.bcel.internal.util.Objects;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -52,6 +51,7 @@ public class webLogIn {
         }            
         return null;
     }
+    
     
     /**
      * Unosi novog korisnika

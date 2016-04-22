@@ -1,5 +1,6 @@
 package Login;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -46,6 +47,18 @@ public class WebKorisnik {
         setImePretraga("");
     }
     public void resetLista(){lk.getPretraga().clear();}
+    
+    public void azurirajKorisnika() throws NoSuchAlgorithmException{        
+        lk.azurirajOsobu(selektovaniKorisnik);        
+    }
+    
+    public boolean obrisiKorisnika(){
+        
+    
+       return true;
+    
+    
+    }
 
     /**
      * @return the lk

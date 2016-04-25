@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template datoteka, choose Tools | Templates
  * and open the template in the editor.
  */
 package web;
@@ -27,7 +27,8 @@ import korisni.utility;
  *
  * @author amel
  */
-@RequestScoped
+//@RequestScoped
+@ViewScoped
 @ManagedBean (name="projekat")
 public class webBeanProjekat {
     
@@ -37,7 +38,7 @@ public class webBeanProjekat {
     private ProjekatBean selektovani;
     private int selektovaniId;
     
-    private Part file;
+    private Part datoteka;
 
     public webBeanProjekat() {
     }
@@ -64,16 +65,19 @@ public class webBeanProjekat {
         projekatUnos.setProjectTitle("");
         projekatUnos.setRoleInProject("");
     }
+    public void ucitajProjekat(){
+        selektovani=getPK().vratiProjektaPoID(selektovaniId);
+    }
     
     public String snimi(){
         if(projekatUnos == null) {
             utility.poruka("Unos:btnNoviPr", "Nije došlo do inicijalizacije objekta");
             return null;
         }
-        if(!getFile().getSubmittedFileName().isEmpty()){
-            projekatUnos.setProjectPath(getFile().getSubmittedFileName());
-            try (InputStream input = getFile().getInputStream()) {
-                Files.copy(input, new File(utility.putZaProjekte, getFile().getSubmittedFileName()).toPath());
+        if(!getDatoteka().getSubmittedFileName().isEmpty()){
+            projekatUnos.setProjectPath(getDatoteka().getSubmittedFileName());
+            try (InputStream input = getDatoteka().getInputStream()) {
+                Files.copy(input, new File(utility.putZaProjekte, getDatoteka().getSubmittedFileName()).toPath());
             }
             catch (IOException e) {
                 utility.poruka("Unos:btnNoviPr", "Problem pri prenosu datoteke");
@@ -191,17 +195,17 @@ public class webBeanProjekat {
     }
 
     /**
-     * @return the file
+     * @return the datoteka
      */
-    public Part getFile() {
-        return file;
+    public Part getDatoteka() {
+        return datoteka;
     }
 
     /**
-     * @param file the file to set
+     * @param datoteka the datoteka to set
      */
-    public void setFile(Part file) {
-        this.file = file;
+    public void setDatoteka(Part datoteka) {
+        this.datoteka = datoteka;
     }
 
     /**

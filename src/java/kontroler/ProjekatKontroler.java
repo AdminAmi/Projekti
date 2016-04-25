@@ -88,6 +88,13 @@ public class ProjekatKontroler {
         
     }
     
+    public ProjekatBean vratiProjektaPoID(int id){
+        if(!projekti.isEmpty()){
+            for(ProjekatBean selektovan: projekti){if (selektovan.getId()==id) return selektovan;}
+        }
+        return null;
+    }
+    
     /**
      *
      * @param k

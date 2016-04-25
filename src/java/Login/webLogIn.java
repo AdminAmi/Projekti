@@ -3,6 +3,8 @@ package Login;
 
 import Login.loginKontroler;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -20,12 +22,16 @@ public class webLogIn {
     private boolean testRegistracije, zastavica=false;
     private String newPass, confirmPass;  
     private int serverResponse = 0;
+    private List<String> tipovi = new ArrayList<>();  
     
     
 
     public webLogIn() {
          setTestRegistracije(false);
          reset();
+         getTipovi().add("admin");
+         getTipovi().add("korisnik");
+         getTipovi().add("guest"); 
     }
     
     private void reset(){
@@ -38,7 +44,7 @@ public class webLogIn {
                 (getNewPass().equals(getConfirmPass())) ) {
         
             lk.getKorisnik().setPass(newPass);
-            lk.azurirajOsobu(lk.getKorisnik());
+            lk.azurirajOsobu(lk.getKorisnik(),lk.getKorisnik().getId());
             setZastavica(true);
             utility.poruka("AzuriranjeKorisnika:promjenaPass", 
                     "Uspješna promjena zaporke!!!");            
@@ -207,6 +213,20 @@ public class webLogIn {
      */
     public void setServerResponse(int serverResponse) {
         this.serverResponse = serverResponse;
+    }
+
+    /**
+     * @return the tipovi
+     */
+    public List<String> getTipovi() {
+        return tipovi;
+    }
+
+    /**
+     * @param tipovi the tipovi to set
+     */
+    public void setTipovi(List<String> tipovi) {
+        this.tipovi = tipovi;
     }
     
 }

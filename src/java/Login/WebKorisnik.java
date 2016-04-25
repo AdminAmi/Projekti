@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import korisni.utility;
 
 
 
@@ -14,20 +16,23 @@ import javax.faces.bean.RequestScoped;
  *
  * @author amel
  */
-@RequestScoped
+//@RequestScoped
+@SessionScoped
 @ManagedBean 
 public class WebKorisnik {
     private Login.loginKontroler lk = new loginKontroler();
     private login selektovaniKorisnik = new login();
-    private int selektovaniID;
-    private String imePretraga;
-    private List<String> tipovi = new ArrayList<>();   
+    private int selektovaniID, serverResponse;
+    private String imePretraga, selektovaniTip;
+    
 
     public WebKorisnik() {
     }
     
     @PostConstruct
-    public void init() {       
+    public void init() { 
+        
+        
     //inicijalizacijski kod za objekat bolje nego konstruiktor
     }
     @PreDestroy
@@ -36,9 +41,8 @@ public class WebKorisnik {
     }
     public void ucitajOsobu(){
         selektovaniKorisnik=lk.getUserFromID(getSelektovaniID());
-        getTipovi().add(0,"admin");
-        getTipovi().add(1,"korisnik");
-        getTipovi().add(2,"guest");       
+        setSelektovaniTip(selektovaniKorisnik.getRola());
+              
     }
     
     public void pretraga(){
@@ -48,16 +52,22 @@ public class WebKorisnik {
     }
     public void resetLista(){lk.getPretraga().clear();}
     
-    public void azurirajKorisnika() throws NoSuchAlgorithmException{        
-        lk.azurirajOsobu(selektovaniKorisnik);        
+    public void azurirajKorisnika() throws NoSuchAlgorithmException{ 
+        selektovaniKorisnik.setRola(selektovaniTip);
+        if(lk.azurirajOsobu(selektovaniKorisnik,selektovaniID)){
+            utility.poruka("editKorisnik:btnAzKorisnik", "Uspješno ažuriranje korisnika");
+        }
+        else {utility.poruka("editKorisnik:btnAzKorisnik", "Neuspješao ažuriranje korisnika");}
     }
     
-    public boolean obrisiKorisnika(){
-        
-    
-       return true;
-    
-    
+    public String obrisiKorisnika(){
+        if(lk.obrisiOsobu(selektovaniKorisnik)){
+            utility.poruka("editKorisnik:btnBrKorisnik", "Uspješno brisanje korisnika");
+            return "main";
+        }else {
+            utility.poruka("editKorisnik:btnBrKorisnik", "Neuspješno brisanje korisnika");
+            return null;
+        }  
     }
 
     /**
@@ -117,17 +127,31 @@ public class WebKorisnik {
     }
 
     /**
-     * @return the tipovi
+     * @return the serverResponse
      */
-    public List<String> getTipovi() {
-        return tipovi;
+    public int getServerResponse() {
+        return serverResponse;
     }
 
     /**
-     * @param tipovi the tipovi to set
+     * @param serverResponse the serverResponse to set
      */
-    public void setTipovi(List<String> tipovi) {
-        this.tipovi = tipovi;
+    public void setServerResponse(int serverResponse) {
+        this.serverResponse = serverResponse;
+    }
+
+    /**
+     * @return the selektovaniTip
+     */
+    public String getSelektovaniTip() {
+        return selektovaniTip;
+    }
+
+    /**
+     * @param selektovaniTip the selektovaniTip to set
+     */
+    public void setSelektovaniTip(String selektovaniTip) {
+        this.selektovaniTip = selektovaniTip;
     }
     
     

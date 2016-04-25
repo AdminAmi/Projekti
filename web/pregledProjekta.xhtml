@@ -21,6 +21,10 @@
             .stavka{display: none;}          
         </style>
         <title>TFB Projekti</title>
+        <f:metadata>
+            <f:viewParam name="IDP" value="#{projekat.selektovaniId}"/>
+            <f:viewAction action="#{projekat.ucitajProjekat()}"/>
+        </f:metadata>
     </h:head>    
     <h:body > 
     <c:if test="${LogIn.testRegistracije == true }">
@@ -53,14 +57,14 @@
                          isOK="#{LogIn.lk.korisnik.rola}" />   
             
         <!--Unos sadržaja -->  
-        <h:form id="Unos" enctype="multipart/form-data">
+        <h:form id="PrPregled" enctype="multipart/form-data">
             <div  class="w3-container w3-padding-jumbo w3-small ">                
-                <h1 class="w3-text-teal">Unos novog projekta</h1>                
+                <h1 class="w3-text-teal">Pregled projekta : #{projekat.selektovani.fileName}</h1>                
                 <ul class="w3-leftbar w3-theme-border" style="list-style-type:none">
                     <li class="ami-li">
                         <p>
                             <label class="ami-labela">Naslov projekta:</label> 
-                            <h:inputText value="#{projekat.projekatUnos.projectTitle}"
+                            <h:inputText value="#{projekat.selektovani.projectTitle}"
                                          style="width: 80%"
                                      class="w3-border w3-border-teal w3-border-bottom " />
                         </p>
@@ -68,7 +72,7 @@
                     <li class="ami-li">
                         <p>
                             <label class="ami-labela">Skraćeni naslov projekta:</label> 
-                            <h:inputText value="#{projekat.projekatUnos.fileName}"
+                            <h:inputText value="#{projekat.selektovani.fileName}"
                                          style="width: 80%"
                                      class="w3-border w3-border-teal w3-border-bottom " />
                         </p>
@@ -78,7 +82,7 @@
                             <label class="ami-labela">Naziv donatora:</label>
                             <h:inputText class="w3-border w3-border-teal w3-border-bottom  "   
                                          style="width: 80%"
-                                         value="#{projekat.projekatUnos.donorsOfProject}" />
+                                         value="#{projekat.selektovani.donorsOfProject}" />
                         </p>
                     </li >
                     <li class="ami-li">  
@@ -86,7 +90,7 @@
                             <label class="ami-labela">Mjesto održavanja projekta:</label>
                             <h:inputText class="w3-border w3-border-teal w3-border-bottom " 
                                          style="width: 80%"
-                                         value="#{projekat.projekatUnos.location}" />
+                                         value="#{projekat.selektovani.location}" />
                         </p>               
                     </li> 
                     <li class="ami-li">
@@ -94,7 +98,7 @@
                             <label class="ami-labela">Ukupni iznos projekta:</label>
                             <h:inputText class="w3-border w3-border-teal "  
                                          style="width: 80%"
-                                         value="#{projekat.projekatUnos.cost}" />
+                                         value="#{projekat.selektovani.cost}" />
                         </p>
                     </li>
                     <li class="ami-li">
@@ -102,7 +106,7 @@
                             <label class="ami-labela">Ukupni iznos dobijen od donatora:</label>
                             <h:inputText class="w3-border w3-border-teal  "  
                                          style="width: 80%"
-                                         value="#{projekat.projekatUnos.ammountOfDonors}" />
+                                         value="#{projekat.selektovani.ammountOfDonors}" />
                         </p>
                     </li>
                     <li class="ami-li">
@@ -110,7 +114,7 @@
                             <label class="ami-labela">Uloga u projektu</label>
                             <h:selectOneMenu class="w3-select w3-border w3-border-teal"  
                                              style="width: 80%"
-                                             value="#{projekat.projekatUnos.roleInProject}" >
+                                             value="#{projekat.selektovani.roleInProject}" >
                                 <f:selectItem itemValue="Coordinator" itemDescription="Coordinator"/>
                                 <f:selectItem itemValue="Co-applicant" itemDescription="Co-applicant"/>
                                 <f:selectItem itemValue="affiliated entity" itemDescription="affiliated entity "/>
@@ -123,7 +127,7 @@
                             <label class="ami-labela" >Vrijeme trajanja projekta </label>
                             <h:inputText class="w3-border w3-border-teal "         
                                          style="width: 80%"
-                                         value="#{projekat.projekatUnos.projectDuration}" />                                            
+                                         value="#{projekat.selektovani.projectDuration}" />                                            
                         </p>                       
                     </li> 
                     <li class="ami-li">                           
@@ -131,7 +135,7 @@
                             <label class="ami-labela" >Učesinici ispred TFB-a </label>
                             <h:inputText class="w3-border w3-border-teal "         
                                          style="width: 80%"
-                                         value="#{projekat.projekatUnos.participants}" />                                            
+                                         value="#{projekat.selektovani.participants}" />                                            
                         </p>                       
                     </li> 
                     <li class="ami-li">
@@ -140,21 +144,20 @@
                             <h:inputTextarea class="w3-input w3-border-teal w3-border "
                                              style="width: 80%"
                                              cols="30" rows="6"
-                                             value="#{projekat.projekatUnos.objectives}" />
+                                             value="#{projekat.selektovani.objectives}" />
                         </p>
                     </li>
                     <li class="ami-li">
                         <p>
-                            <label class="ami-labela">Projekat za upload</label>
-                            <h:inputFile value="#{projekat.file}"   />
+                            <label class="ami-labela">Dokument za preuzimanje</label>
+                            <h:commandLink id="L" value="#{projekat.selektovani.projectPath}" action="#{projekat.downloadProjekat()}" >
+                            <!--    <f:ajax execute="PrPregled:L" render="PrPregled:L" /> -->
+                            </h:commandLink>
                             
                         </p>
-                        <p>
-                            <h:commandButton class="w3-btn w3-teal" 
-                                             id="btnNoviPr"
-                                             value="Snimi projekat"
-                                             action="#{projekat.snimi()}"/>
-                        </p>
+                        <!--
+                       
+                        -->
                     </li>
                     
                                         

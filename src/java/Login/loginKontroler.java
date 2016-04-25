@@ -57,22 +57,21 @@ public class loginKontroler {
         return (i!=korisnici.size() && xml.smjestiUXML());
     }
     
-    public boolean azurirajOsobu(login log) throws NoSuchAlgorithmException{
-        korisnici.get(log.getId()).setIme(log.getIme());
-        korisnici.get(log.getId()).setPrezime(log.getPrezime());
-        korisnici.get(log.getId()).setRola(log.getRola());
-        korisnici.get(log.getId()).setUser(log.getUser());
+    public boolean azurirajOsobu(login log,int id) throws NoSuchAlgorithmException{
+        korisnici.get(id).setIme(log.getIme());
+        korisnici.get(id).setPrezime(log.getPrezime());
+        korisnici.get(id).setRola(log.getRola());
+        korisnici.get(id).setUser(log.getUser());
         if(log.getPass().length()>0) 
-            korisnici.get(log.getId()).setPass(utility.sha1(log.getPass()));
+            korisnici.get(id).setPass(utility.sha1(log.getPass()));
         xml.smjesti(korisnici); 
         return xml.smjestiUXML();
     }
     
    public boolean obrisiOsobu(login log){
-       for(login kor:korisnici) {
-           if (kor.getId() == log.getId())  
-               korisnici.remove(kor.getId());
-       }
+       int ukupno = korisnici.size(); 
+       korisnici.remove(log);
+       xml.smjesti(korisnici);
        return xml.smjestiUXML();
    }
 

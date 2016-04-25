@@ -46,7 +46,7 @@ public class zaXML {
             jaxbMarshaller.marshal(li, new File(utility.putZaXML + "korisnici.xml"));
             return true;
         } catch(JAXBException ex){
-            System.out.println(ex);
+            System.err.println(ex);
             return false;
         }
     }
